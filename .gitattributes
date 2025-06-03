@@ -1,2 +1,12 @@
-# Auto detect text files and perform LF normalization
+# Normalización de finales de línea para evitar conflictos entre Windows/Linux/macOS
 * text=auto
+
+# Tratar archivos de imagen como binarios
+*.png binary
+
+# Tratar notebooks como binarios si usas .ipynb
+*.ipynb diff=auto
+
+# Evitar que Quarto o archivos generados se traten como texto en diffs
+_site/** binary
+_quarto/** binary
