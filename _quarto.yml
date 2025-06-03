@@ -2,24 +2,26 @@ project:
   type: book
 
 book:
-  title: "EG-Quarto"
-  author: "Norah Jones"
+  title: "Libro guía estadística general"
+  author:
+    - name: "Cristhian Quiroz"
+      affiliation: "Universidad EAFIT"
   date: "6/2/2025"
   chapters:
     - index.qmd
-    - intro.qmd
-    - summary.qmd
+    - capitulo_1.qmd
+    - capitulo_2.qmd
+    - capitulo_3.qmd
+    - capitulo_4.qmd
     - references.qmd
 
 bibliography: references.bib
 
+lang: es
 format:
   html:
     theme:
       - cosmo
       - brand
-  pdf:
-    documentclass: scrreprt
-
 
 

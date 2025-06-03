@@ -1,5 +1,13 @@
 # Preface {.unnumbered}
 
-This is a Quarto book.
+---
+title: "Estadística General"
+author: 
+  - "Cristhian Quiroz"
+date: "`r Sys.Date()`"
+format: html
+---
 
-To learn more about Quarto books visit <https://quarto.org/docs/books>.
+# Bienvenida
+
+Este libro cubre los fundamentos de estadística general...
