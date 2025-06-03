@@ -1,1 +1,30 @@
-/.quarto/
+# Configuración de VS Code
+.vscode/
+
+# Archivos de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.ipynb_checkpoints/
+
+# Entornos virtuales
+.env
+.venv/
+venv/
+ENV/
+env/
+
+# Archivos de R
+.Rhistory
+.RData
+.Ruserdata
+
+# Archivos generados por Quarto
+_quarto/
+_site/
+*.html
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
