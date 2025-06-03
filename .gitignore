@@ -21,12 +21,14 @@ env/
 .Ruserdata
 
 # Archivos generados por Quarto
-_quarto/
+_book/
 _site/
+_quarto/
 *.html
+
+# Archivos binarios
+*.png binary
 
 # Archivos del sistema operativo
 .DS_Store
 Thumbs.db
-
-/.quarto/
