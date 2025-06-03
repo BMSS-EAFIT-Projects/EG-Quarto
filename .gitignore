@@ -21,11 +21,11 @@ env/
 .Ruserdata
 
 # Archivos generados por Quarto
-.quarto/
 _book/
 _site/
 _quarto/
 *.html
+.quarto/
 
 # Archivos binarios
 *.png binary
