@@ -1,26 +1,20 @@
 {
   "index.qmd": {
-    "index.html": "970e5da8"
-  },
-  "intro.qmd": {
-    "intro.html": "ad694da5"
-  },
-  "summary.qmd": {
-    "summary.html": "2be0c555"
-  },
-  "references.qmd": {
-    "references.html": "5cc67d30"
+    "index.html": "9785e6bf"
   },
   "capitulo_1.qmd": {
-    "capitulo_1.html": "3a01c224"
+    "capitulo_1.html": "b6e5edc7"
   },
   "capitulo_2.qmd": {
-    "capitulo_2.html": "c7688961"
+    "capitulo_2.html": "0ef3cb26"
   },
   "capitulo_3.qmd": {
-    "capitulo_3.html": "321fa579"
+    "capitulo_3.html": "64f08201"
   },
   "capitulo_4.qmd": {
-    "capitulo_4.html": "dcc29145"
+    "capitulo_4.html": "f4db5673"
+  },
+  "references.qmd": {
+    "references.html": "51868026"
   }
 }

@@ -21,6 +21,7 @@ env/
 .Ruserdata
 
 # Archivos generados por Quarto
+.quarto/
 _book/
 _site/
 _quarto/
@@ -32,3 +33,5 @@ _quarto/
 # Archivos del sistema operativo
 .DS_Store
 Thumbs.db
+
+/.quarto/
