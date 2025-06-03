@@ -1,3 +1,72 @@
-# Capitulo 1: Descripción estadística de una variable
+# Descripcion estadistica de una variable 
 
+## ¿Qué es la estadística?
+
+La estad ́ıstica es una colecci  ́on de m  ́etodos que nos ayudan a describir, resumir, interpretar y analizar datos. 
+
+Extraer conclusiones a partir de los datos es vital en la investigación, la administración y los negocios.
+
+## ¿Para qué estudiar estadística?
+
+Los usos de la estadística son diversos, por ejemplo:
+
+-  Analizar la relación entre personalidad y toma de decisiones
+-  Evaluar el efecto de un fertilizante
+-  Estudiar cambios poblacionales
+-  Estimar esperanza de vida
+-  Analizar diferencias geográficas en el consumo de energía
+-  Optimizar precios y evaluar la satisfacción del cliente
+
+## Población, muestra y observaciones
+
+### Definición
+
+Las **Unidades** en las que medimos datos, como personas, carros, animales o plantas, se llaman **Observaciones**.
+
+La colección de todas las observaciones se llama **Población** y una selección de observaciones es llamada **Muestra**
+
+### Ejemplo
+
+
+## Variables estadísticas
+
+Si hemos definido la población de interés para una pregunta de investigación específica, podemos pensar en lo que es de interés
+
+en nuestas observaciones. Una característica particular de estas observaciones puede ser recogida en una variable estadística **X**.
+
+### Definición
+
+considere $\Omega$ una población y $w \in \Omega$ una unidad. Entonces:
+
+$$
+\begin{array}{c}
+X : \Omega \rightarrow S \\
+\omega \mapsto x
+\end{array}
+$$
+
+Es decir, una variable $X$ toma un valor $x$ para cada observación $\omega$ perteneciente a $\Omega$, donde la cantidad de valores posibles está contenida en el conjunto $S$.
+...
+
+### Tipos de variables
+
+### Cualitativas: nominales y ordinales  
+### Cuantitativas: discretas y continuas
+
+...
+
+## Frecuencias
+
+### Frecuencia absoluta  
+### Frecuencia relativa  
+### Ejercicio práctico
+
+...
+
+## Visualización de variables cualitativas
+
+### Diagrama de barras  
+#### Ejemplo práctico  
+### Diagrama circular  
+#### Ejemplo práctico
 

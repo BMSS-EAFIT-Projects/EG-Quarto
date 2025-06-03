@@ -1,5 +1,3 @@
-# Preface {.unnumbered}
-
 ---
 title: "Estadística General"
 author: 
@@ -8,6 +6,37 @@ date: "`r Sys.Date()`"
 format: html
 ---
 
-# Bienvenida
+# Prefacio {.unnumbered}
 
-Este libro cubre los fundamentos de estadística general...
+Bienvenido al libro **Estadística General**, una guía diseñada para los estudiantes del curso de Estadística General de la **Universidad EAFIT**.
+
+Este texto cubre los principales temas del curso, desde la descripción y visualización de datos hasta conceptos fundamentales de probabilidad e inferencia estadística. Cada capítulo busca acompañar y reforzar las sesiones de clase, proporcionando explicaciones claras, ejemplos adicionales y herramientas para el autoaprendizaje.
+
+Además del enfoque teórico, el libro integra soluciones computacionales que permiten implementar los conceptos estadísticos en la práctica. Se utilizan lenguajes como **Python** y **R**, facilitando así el desarrollo de competencias en análisis de datos con software moderno y de uso extendido.
+
+Este material ha sido elaborado con el objetivo de apoyar tanto la comprensión conceptual como el desarrollo de habilidades aplicadas. Está pensado para ser consultado dentro y fuera del aula, y para acompañar al estudiante a lo largo de todo el curso.
+
+Esperamos que esta guía sea un recurso útil, motivador y formativo en tu proceso de aprendizaje de la estadística.
+
+---
+
+# Estructura del libro {.unnumbered}
+
+El curso se estructura en cuatro unidades temáticas:
+
+- ▶ **Descripción estadística de una variable**
+- ▶ **Análisis de fenómenos aleatorios**
+- ▶ **Inferencia estadística**
+- ▶ **Análisis de dependencia lineal**
+
+---
+
+# Requisitos previos {.unnumbered}
+
+No se requieren conocimientos previos de programación. Se espera familiaridad básica con matemáticas de secundaria y disposición para aprender paso a paso.
+
+---
+
+# Licencia {.unnumbered}
+
+Aun no se que licencia va aca.
