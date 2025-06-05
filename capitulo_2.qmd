@@ -6,3 +6,6 @@ X : \Omega \rightarrow S \\
 \omega \mapsto x
 \end{array}
 $$
+
+## AGREGAR LA RECOMENDACION QUE DIJO NICOLAS 
+
