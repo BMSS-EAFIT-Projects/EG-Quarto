@@ -2,7 +2,7 @@
 
 ## ¿Qué es la estadística?
 
-La estad ́ıstica es una colecci  ́on de m  ́etodos que nos ayudan a describir, resumir, interpretar y analizar datos. 
+La estadistica es una colecci  ́on de m  ́etodos que nos ayudan a describir, resumir, interpretar y analizar datos. 
 
 Extraer conclusiones a partir de los datos es vital en la investigación, la administración y los negocios.
 
