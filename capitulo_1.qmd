@@ -10,15 +10,15 @@ see side-by-side code snippets, allowing you to translate a task from one langua
 
 By the end of this chapter you will be able to
 
-- import tabular data into R (readr) and Python (pandas);
+- Recognize and use basic data types and data structures
 
-- calculate key descriptive measures (mean, median, standard deviation, IQR);
+- Perform basic operations and import packages
 
-- create quick exploratory graphics (scatterplots, histograms, boxplots) in both ggplot2 and seaborn;
+- Perform exploratory analisys of data
 
-- understand the typical workflow of a script or notebook in each language;
+- Ploting insights
 
-- decide which language—or combination of both—is the best fit for a given statistical problem.
+- 
 
 Mastering these building blocks will prepare you for the next chapters, where we apply R and Python to more advanced
 topics such as hypothesis testing, regression modelling, and simulation.
@@ -28,35 +28,103 @@ topics such as hypothesis testing, regression modelling, and simulation.
 The first step in mastering any programming language is becoming familiar with its syntax—the set of rules that lets you communicate with a computer.
 In practice, your code is passed to an interpreter or compiler that translates those human-readable instructions into machine language the hardware can execute.
 
+### Data types.
+Before writing any analysis, it’s essential to know the basic **data types** that both R and Python offer.  
+In the next code block you’ll see how to **create variables**, **inspect their type**, and **compare the syntax** side by side.
 
-
-
-### subsec
-::: {.callout-note title="Example: Galton height data"}
-
+::: {.callout-note title="Example: Data types"}
+#### Data types
 ::: {.panel-tabset}
 ### R
 ```{r}
-#| label: galton-r
+#| label: data_types_r
 #| code-fold: true      # ← esto crea el botón “Código”
 #| fig-width: 6
 #| fig-height: 4
 #| message: false
 #| warning: false
-library(readr)
-library(ggplot2)
+integer  <- 2L         # L → integer (32-bit)
+typeof(integer)        #> integer
+
+double   <- 3.45
+typeof(double)         #> double
+
+string   <- "text"
+typeof(string)         #> character
+
+logical  <- TRUE
+typeof(logical)        #> logical
+
+complex  <- 1 + 2i
+typeof(complex)        #> complex
 
 ```
 ### Python
 ```{python}
-#| label: galton-py
+#| label: data_types-py
 #| code-fold: true      # ← botón “Código”
 #| fig-width: 6
 #| fig-height: 4
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
+integer  = 2
+print(type(integer))    # <class 'int'>
+
+double   = 3.45
+print(type(double))     # <class 'float'>
+
+string   = "text"
+print(type(string))     # <class 'str'>
+
+boolean  = True
+print(type(boolean))    # <class 'bool'>
+
+complex_ = 1 + 2j
+print(type(complex_))   # <class 'complex'>
+
 ```
 
 :::
 :::
+
+**Why do data types matter?**
+
+Every operation you perform on a variable depends on its type. For example, you can’t directly add a character string to a floating-point number because they belong to different data categories. Before combining them, you must convert one type into the other (e.g., cast the number to a string or parse the string as a number). Understanding these constraints—and how each language handles type conversion—prevents bugs and makes your code more readable.
+
+::: {.callout-warning title="Erro: Data types"}
+#### Data types error
+::: {.panel-tabset}
+### R
+```{r}
+#| label: common error dtype r
+#| code-fold: true      # ← esto crea el botón “Código”
+#| fig-width: 6
+#| fig-height: 4
+#| message: false
+#| warning: false
+#| error: true
+
+
+"5" + 3      # non-numeric argument to binary operator
+```
+### Python
+```{python}
+#| label: common error dtype py
+#| code-fold: true      # ← botón “Código”
+#| fig-width: 6
+#| fig-height: 4
+#| error: true
+
+"5" + 3      # TypeError: can only concatenate str (not "int") to str
+
+```
+
+:::
+:::
+
+Now that you know the basic types, let's move on to the structures that group them: vectors in R and lists/tuples in Python.
+
+### Data structures.
+Data structures allow us to group and organize multiple elements.  In this section we will see how to create and manipulate the most common collections in R and Python, comparing syntax and behaviors.
+
+### Importing packages
+
+### Basic operations
