@@ -23,5 +23,6 @@ format:
     theme:
       - cosmo
       - brand
+    code-fold: true
 
 

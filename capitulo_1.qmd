@@ -1,72 +1,62 @@
-# Descripcion estadistica de una variable 
+# Chapter 1 – Descriptive Statistics with R & Python
+In this chapter we introduce two of the most widely used programming languages for statistical analysis—R and Python.
+Each has unique strengths: R offers a rich ecosystem of statistics-first packages (think ggplot2, dplyr, survival),
+whereas Python shines for general-purpose data science and machine-learning pipelines (pandas, scikit-learn, TensorFlow).
+Mastering both gives you the flexibility to jump between academic research workflows and industry data-science stacks.
 
-## ¿Qué es la estadística?
+We will not discuse the instalation of the required toolchains since there is a lot of good resources to learn this process
+so we star with a walk through their basic syntax, data structures, and plotting libraries. Throughout the chapter you will
+see side-by-side code snippets, allowing you to translate a task from one language to the other with minimal friction.
 
-La estadistica es una coleccion de m  ́etodos que nos ayudan a describir, resumir, interpretar y analizar datos. 
+By the end of this chapter you will be able to
 
-Extraer conclusiones a partir de los datos es vital en la investigación, la administración y los negocios.
+- import tabular data into R (readr) and Python (pandas);
 
-## ¿Para qué estudiar estadística?
+- calculate key descriptive measures (mean, median, standard deviation, IQR);
 
-Los usos de la estadística son diversos, por ejemplo:
+- create quick exploratory graphics (scatterplots, histograms, boxplots) in both ggplot2 and seaborn;
 
--  Analizar la relación entre personalidad y toma de decisiones
--  Evaluar el efecto de un fertilizante
--  Estudiar cambios poblacionales
--  Estimar esperanza de vida
--  Analizar diferencias geográficas en el consumo de energía
--  Optimizar precios y evaluar la satisfacción del cliente
+- understand the typical workflow of a script or notebook in each language;
 
-## Población, muestra y observaciones
+- decide which language—or combination of both—is the best fit for a given statistical problem.
 
-### Definición
-
-Las **Unidades** en las que medimos datos, como personas, carros, animales o plantas, se llaman **Observaciones**.
-
-La colección de todas las observaciones se llama **Población** y una selección de observaciones es llamada **Muestra**
-
-### Ejemplo
+Mastering these building blocks will prepare you for the next chapters, where we apply R and Python to more advanced
+topics such as hypothesis testing, regression modelling, and simulation.
 
 
-## Variables estadísticas
+## Getting Started with R and Python
+The first step in mastering any programming language is becoming familiar with its syntax—the set of rules that lets you communicate with a computer.
+In practice, your code is passed to an interpreter or compiler that translates those human-readable instructions into machine language the hardware can execute.
 
-Si hemos definido la población de interés para una pregunta de investigación específica, podemos pensar en lo que es de interés
 
-en nuestas observaciones. Una característica particular de estas observaciones puede ser recogida en una variable estadística **X**.
 
-### Definición
 
-considere $\Omega$ una población y $w \in \Omega$ una unidad. Entonces:
+### subsec
+::: {.callout-note title="Example: Galton height data"}
 
-$$
-\begin{array}{c}
-X : \Omega \rightarrow S \\
-\omega \mapsto x
-\end{array}
-$$
+::: {.panel-tabset}
+### R
+```{r}
+#| label: galton-r
+#| code-fold: true      # ← esto crea el botón “Código”
+#| fig-width: 6
+#| fig-height: 4
+#| message: false
+#| warning: false
+library(readr)
+library(ggplot2)
 
-Es decir, una variable $X$ toma un valor $x$ para cada observación $\omega$ perteneciente a $\Omega$, donde la cantidad de valores posibles está contenida en el conjunto $S$.
-...
+```
+### Python
+```{python}
+#| label: galton-py
+#| code-fold: true      # ← botón “Código”
+#| fig-width: 6
+#| fig-height: 4
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+```
 
-### Tipos de variables
-
-### Cualitativas: nominales y ordinales  
-### Cuantitativas: discretas y continuas
-
-...
-
-## Frecuencias
-
-### Frecuencia absoluta  
-### Frecuencia relativa  
-### Ejercicio práctico
-
-...
-
-## Visualización de variables cualitativas
-
-### Diagrama de barras  
-#### Ejemplo práctico  
-### Diagrama circular  
-#### Ejemplo práctico
-
+:::
+:::
