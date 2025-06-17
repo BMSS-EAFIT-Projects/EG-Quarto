@@ -1,0 +1,11 @@
+# Chapter 4: Descriptive statistics
+
+## Empirical distribution function
+
+## Measure of central tendency: Estimation from empirical distribution
+
+## Measure of variability: Estimation from empirical distribution
+
+## Position measurements: Estimation from empirical distribution
+
+## Charts (Histograms, box-plot, qq-plot)

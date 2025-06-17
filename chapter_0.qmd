@@ -1,4 +1,5 @@
-# Chapter 1 – Descriptive Statistics with R & Python
+# Chapter 0 – Learning the basics of R & Python
+
 In this chapter we introduce two of the most widely used programming languages for statistical analysis—R and Python.
 Each has unique strengths: R offers a rich ecosystem of statistics-first packages (think ggplot2, dplyr, survival),
 whereas Python shines for general-purpose data science and machine-learning pipelines (pandas, scikit-learn, TensorFlow).
@@ -201,7 +202,72 @@ print(v[0])   # "a"
 :::
 :::
 
-
 ### Importing packages
+Before diving deeper into using R to solve statistical problems of any kind, its essential to understand how to extend the functionality of your programming enviroment. Both R an Python rely on external packages. Collections of functions and tools developed by the community to perform specialized tasks. in this section we'll walk you through how to install and manage packages in both languages so you can confidently access the tools needed for any analysis you aim to perform.
 
-### Basic operations
+::: {.callout-note title="Importing packages"}
+#### Installing packages in R & Python
+::: {.panel-tabset}
+### R
+```{r}
+#| label: packages-R
+#| code-fold: true
+
+#install.packages("ggplot2") this is the line you should use for installing the package
+
+#for importing the package in your project type:
+
+library(ggplot2)
+
+```
+### Python
+```{python}
+#| label: packages-Py
+#| code-fold: true
+
+# For the python isntallation you should run this code line in the CMD
+
+'pip install (name of the package)'
+
+#in particular to intall pandas wich is one of the most used packages in python we tpye:
+
+'pip install pandas'
+
+#for importing the packages in your project type:
+
+import pandas as pd
+
+```
+
+:::
+:::
+
+### Exercises
+
+In this section, you’ll find a set of exercises along with their respective solutions in both Python and R. Try solving them on your own first—there’s often more than one way to reach the same result, so don’t hesitate to explore alternative approaches. You might discover a different (and even better) solution!
+
+
+#### Exercise #1
+Test your knowledg in variable signation
+
+::: {.callout-note title="Excercise"}
+::: {.panel-tabset}
+### R
+```{r}
+#| label: excercise-1-r
+#| code-fold: true
+
+var <- 123
+
+```
+### Python
+```{python}
+#| label: excercise-1-py
+#| code-fold: true
+
+var = 123
+
+```
+:::
+:::
+

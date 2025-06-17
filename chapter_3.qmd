@@ -1,0 +1,21 @@
+# Chapter 3: Random vectors
+
+## Random variable
+
+## Cumulative distribution function
+
+## Joint distribution
+
+## Conditional densities
+
+## Conditional espected value
+
+## espected value
+
+## Covariance and correlation
+
+## Independence
+
+## Espected value vector and Covariance matrix
+
+## Normal multivariate distribution and Multinomial distribution

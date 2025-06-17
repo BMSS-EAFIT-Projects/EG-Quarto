@@ -1,0 +1,9 @@
+# Chapter 5: Inference
+
+## Estimator: Definition and evaluator
+
+## Sampling distributions and central limit theorem
+
+## Interval estimation for the parameters of the normal distribution and for the mean of any distribution.
+
+## Hypothesis tests for the parameters of the normal distribution and Wald test

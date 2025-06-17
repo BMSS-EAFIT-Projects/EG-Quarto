@@ -1,42 +1,42 @@
 ---
-title: "Estadística General"
+title: "General Statistics"
 author: 
   - "Cristhian Quiroz"
 date: "`r Sys.Date()`"
 format: html
 ---
 
-# Prefacio {.unnumbered}
+# Preface {.unnumbered}
 
-Bienvenido al libro **Estadística General**, una guía diseñada para los estudiantes del curso de Estadística General de la **Universidad EAFIT**.
+Welcome to the book **General Statistics**, a guide designed for students of the General Statistics course at **EAFIT University**.
 
-Este texto cubre los principales temas del curso, desde la descripción y visualización de datos hasta conceptos fundamentales de probabilidad e inferencia estadística. Cada capítulo busca acompañar y reforzar las sesiones de clase, proporcionando explicaciones claras, ejemplos adicionales y herramientas para el autoaprendizaje.
+This text covers the main topics of the course, from data description and visualization to fundamental concepts in probability and statistical inference. Each chapter is intended to support and reinforce classroom sessions by providing clear explanations, additional examples, and tools for self-learning.
 
-Además del enfoque teórico, el libro integra soluciones computacionales que permiten implementar los conceptos estadísticos en la práctica. Se utilizan lenguajes como **Python** y **R**, facilitando así el desarrollo de competencias en análisis de datos con software moderno y de uso extendido.
+In addition to the theoretical focus, the book integrates computational solutions that allow you to apply statistical concepts in practice. Programming languages such as **Python** and **R** are used, making it easier to develop data analysis skills with modern and widely-used software.
 
-Este material ha sido elaborado con el objetivo de apoyar tanto la comprensión conceptual como el desarrollo de habilidades aplicadas. Está pensado para ser consultado dentro y fuera del aula, y para acompañar al estudiante a lo largo de todo el curso.
+This material has been developed with the goal of supporting both conceptual understanding and the development of applied skills. It is meant to be consulted both inside and outside the classroom and to accompany students throughout the course.
 
-Esperamos que esta guía sea un recurso útil, motivador y formativo en tu proceso de aprendizaje de la estadística.
-
----
-
-# Estructura del libro {.unnumbered}
-
-El curso se estructura en cuatro unidades temáticas:
-
-- ▶ **Descripción estadística de una variable**
-- ▶ **Análisis de fenómenos aleatorios**
-- ▶ **Inferencia estadística**
-- ▶ **Análisis de dependencia lineal**
+We hope this guide will be a useful, motivating, and formative resource in your journey of learning statistics.
 
 ---
 
-# Requisitos previos {.unnumbered}
+# Book structure {.unnumbered}
 
-No se requieren conocimientos previos de programación. Se espera familiaridad básica con matemáticas de secundaria y disposición para aprender paso a paso.
+The course is structured into six thematic units:
+
+- ▶ **Learning the basics of R & Python**
+- ▶ **Probability theory**
+- ▶ **Random Variable**
+- ▶ **Random vectors**
+- ▶ **Descriptive statistics**
+- ▶ **Inference**
 
 ---
 
-# Licencia {.unnumbered}
+# Prerequisites {.unnumbered}
 
-Aun no se que licencia va aca.
+No prior programming knowledge is required. Basic familiarity with differential and integral calculus topics and willingness to learn step-by-step is expected.
+
+---
+
+# License {.unnumbered}

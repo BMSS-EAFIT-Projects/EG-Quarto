@@ -2,27 +2,30 @@ project:
   type: book
 
 book:
-  title: "Libro guía estadística general"
+  title: "Text book: General Statistics"
   author:
     - name: "Cristhian Quiroz"
-      affiliation: "Universidad EAFIT"
+      affiliation: "EAFIT university"
   date: "6/2/2025"
   chapters:
     - index.qmd
-    - capitulo_1.qmd
-    - capitulo_2.qmd
-    - capitulo_3.qmd
-    - capitulo_4.qmd
+    - chapter_0.qmd
+    - chapter_1.qmd
+    - chapter_2.qmd
+    - chapter_3.qmd
+    - chapter_4.qmd
+    - chapter_5.qmd
     - references.qmd
 
 bibliography: references.bib
 
-lang: es
+lang: en
 format:
   html:
     theme:
       - cosmo
       - brand
     code-fold: true
+    thebe: true
 
 
