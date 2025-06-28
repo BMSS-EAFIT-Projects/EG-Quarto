@@ -1,8 +1,145 @@
 # Chapter 1: Probability theory
 
-## Basics of set theory
+Porbability provides the mathematical framework for the study of random experiments, defined as processes whose exact outcomes cannot be determined in advance. Examples of such experiments include rolling a die, measuring the lifespan of an electronic component, or counting the number of vehicles passing through an intersection in one minute.
 
-## Kolmogorov axioms
+The purpose of probability is not to predict the outcome of a single event, but to measure its degree of uncertainty. For instance, in the case of tossing a fair coin, a probability of 0.5 is assigned to the ecent **getting heads**. This value does not guarantee a specific result, but it quantifies the phenomenon's tendency: over a long sequence of repetitions, the proportion of that event will converge to its theoretical probability.
+
+The starting point of formalizing this ideas is set theory. Since events of interest are mathematically defined as sets of outcomes, this theory provides the necessary tools and notation to precisely describe the sample space and the events before assigning them a probability measure.
+
+
+## Basics of set theory
+A set is a well-defined collection of objects. Sets are usually denoted by capital letters such as $A, B ,C$ and their elements (the objects belonging to the set) are represented by lowercase letters of symbols like $w$.
+
+The most common way to describe a set is by extensio -That is, listing all its elements inside curly brackets. For example.
+$$
+A = \{w_{1},w_{2},w_{3}, \cdots \}
+$$
+
+
+
+### Membership and Subset
+The fundamental relation between an element and a set is **membership**. To express that an element $\omega$ belongs to a set $A$, we use the symbol $\in$ as follows:
+
+$$
+\omega \in A
+$$
+
+We say that a set $B$ is a **subset** of a set $A$ if all elements of $B$ also belong to $A$. This relationship is denoted by:
+
+$$
+B \subseteq A
+$$
+
+### Empty set
+A partiuclarly important set is **the empty set**. it is defined as the unique set that contains no elements and is denoted by the symbol $\emptyset$. By definition, the empty set is a subset of every other set.
+
+#### Example
+In probability theory, the empty set $\emptyset$ appears constantly. Imagine you are rolling a die and want to determine the probability of getting a 7. This is impossible because a traditional die is numbered from 1 to 6; therefore, the set associated with the number of times 7 is rolled is empty. Consequently, the probability of getting a 7 is 0. This is a much deeper concept that we will review later.
+
+### Universat set
+Finally the **universal set** is defined as the set containing all elements under consideration for a specific problem, and is denoted by $\Omega$
+
+#### Example
+As mentioned above regarding the empty set, the universal set is equally important and common because it represents all possible outcomes of an experiment. Continuing with the example of throwing a die, its universal set would be:
+
+$$
+A = \{ 1,2,3,4,5,6 \}
+$$
+
+### Set operations
+Once the concepts of set and subset are defined, the next step is to study the basic operations that allow us to combine and relate two or more sets to form a new one.
+
+#### Union
+The union of a set $A$ with the set $B$, denoted by $A \cup B$, is the set formed by all elements that belong to $A$, or $B$, or both. That is:
+
+$$
+A \cup B = \{ \omega \in \Omega \mid \omega \in A \lor \omega \in B  \}
+$$
+
+$$
+diagrama de venn union
+$$
+
+#### Intersection
+On the other hand the intersection of set $A$ and set $B$, denoted by $A \cap B$, is the set formed by those elements that simultaneously belong to both $A$ and $B$. That is:
+
+$$
+A \cap B = \{ \omega \in \Omega \mid \omega \in A \land \omega \in B  \}
+$$
+
+$$
+diagrama de venn intersection
+$$
+
+The union and intersection operations can be generalized for collections of more than two sets. For a sequence of sets $A_{1},A_{2},\cdots,A_{n}$, the union gathers all elements that belong to at least one of the sets in the sequence. It is defined as:
+
+$$
+\bigcup_{i=1}^{n} A_{i} = \{\omega \in \Omega \mid \omega \in A_{i}, i=1,2,\cdots,n \}
+$$
+
+Similarly, the intersection gathers all elements common to every set in the sequence. Its defined as:
+
+$$
+\bigcap_{i=1}^{n} A_{i} = \{\omega \in \Omega \mid \omega \in A_{i}, \forall i=1,2,\cdots,n \}
+$$
+
+For infinite sequences of sets $A_{1},A_{2},\cdots$, the  union is defined as:
+
+$$
+\bigcup A_{i} = \{\omega \in \Omega \mid \omega \in A_{i}\}
+$$
+
+And the intersection as:
+
+$$
+\bigcap A_{i} = \{\omega \in \Omega \mid \omega \in A_{i},  \forall i\}
+$$
+
+The third fundamental operation is the complement.
+
+#### Complement
+The complement of a set $A$, denoted by $A^{c}$, is the set of all elements in the universal set $\Omega$ that do not belong to $A$. Its formal definition is:
+
+$$
+A^{c} = \{ \omega \in \Omega \mid \omega \notin A\}
+$$
+
+Closely related to the complement is the difference of sets.
+
+#### Difference of sets
+The difference between set $B$ and $A$, denoted by $B \setminus A$, is the set of all elements that are in $B$ but not in  $A$. This operation is also known as the relative complement of $A$ with respect to $B$. Its formal definition is:
+
+$$
+B\setminus A = \{\omega \in \Omega \mid \omega \in  B  \land \omega \notin A\} = B \cap A^{c}
+$$
+
+The equality $B\setminus A = B \cap A^{c}$ is very important because it allows expressing the difference operation in terms of intersection and complement, which will be particularly useful in probability calculations.
+
+Two sets $A$ and $B$ are defined as disjoint or mutually exclusive if they have no elements in common. The condition for two sets to be disjoint is:
+
+$$
+A \cap B = \emptyset
+$$
+
+Another fundamental concept is partition. Intuitively, a partition of ser $\Omega$ is a "division" of $\Omega$ into subsets that do not overlap and together cover the entire original set. This means that each element of $\Omega$ belongs to one, and only one, of the sets in the partition.
+
+Formally, a collection of non-empty sets $A_{1},A_{2},\cdots,A_{n}$ is a partition of $\Omega$ if it satisfies the following two conditions:
+
+- **Disjoint:** The sets are mutually exclusive $A_{i}\cap A_{j}= \emptyset \forall i\neq j$
+- **Exhaustive:** The union of all sets equals the universal set $\cup_{i=1}^{n} A_{i} = \Omega$
+
+Finally, we need to define a structure that gathers all possible events for which we will define a probability. For this, we introduce the concept of a **collection of sets**, which is simply a set whose elements are themselves sets.
+
+A particularly important case in probability is the **power set** of a sample space $\Omega$. This is the collection that contains all possible subsets of $\Omega$ and is denoted by $2^{\Omega}$. Formally:
+
+$$
+2^{\Omega} = \{A \mid A\subseteq \Omega \}
+$$
+
+## Probability
+We now introduce the fundamental concept of **probability**. To do this, we begin by stating that any subset of the sample space $\Omega$ to which a probability can be assigned is called an **event**.
+
+To build a solid undestanding of the topic, we approach probability from **three complementary perspectives**. We begin with the **frequentist perspective**, the most intuitive interpretation, based on the **law of large numbers**, which defines probability as the value to which the relative frequency of an event converges when the experiment is repeated a large number of times. We then consider the **classica (or uniform) probability**, which applies to experiments where all possible outcomes are equally likely. Finally, we introduce the **Axiomatic definition**, which is the modern and formal approach to probability. It is based on a set of fundamental rules (axioms) that underpin the entire mathematical theory and unify the previous interpretations.
 
 ## Probability properties
 
