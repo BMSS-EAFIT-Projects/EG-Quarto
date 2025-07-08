@@ -19,8 +19,6 @@ By the end of this chapter you will be able to
 
 - Ploting insights
 
-- 
-
 Mastering these building blocks will prepare you for the next chapters, where we apply R and Python to more advanced
 topics such as hypothesis testing, regression modelling, and simulation.
 
