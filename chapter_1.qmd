@@ -130,7 +130,7 @@ $$
 A\cup B = \{a,b,c\}
 $$
 
-3. Let $A=\{1,2,3\}$ and $B=\{1,2,3\} two sets with the same elements. Then $A \cup B$ is:
+3. Let $A=\{1,2,3\}$ and $B=\{1,2,3\}$ two sets with the same elements. Then $A \cup B$ is:
 
 $$
 A\cup B = \{1,2,3\}
