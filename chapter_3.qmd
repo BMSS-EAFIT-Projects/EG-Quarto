@@ -5,7 +5,230 @@
 ## Cumulative distribution function
 
 ## Joint distribution
+*A particle can have a position or a velocity, but strictly speaking it cannot hace both... The more we clarify the secret of position, the more deeply the secret of velocity hides... We cna distribute uncertainty as we wish, but we can never eliminate it.*
 
+### Joint Distribution Function
+Throughout this unit we assume a probability sapce $(\Omega,\mathcal{F},P)$ correspondig to a given random experiment.
+
+**Notation**. Given random variables
+$$
+\begin{align}
+X \colon \Omega \longrightarrow
+ \mathbb{R}
+\space \space \space 
+X_1,\cdots, X_n \colon \Omega \longrightarrow
+ \mathbb{R}
+ \end{align}
+$$
+
+and subsets $B,B_1,\dots,B_n\subset\mathbb R$, we write:
+
+$$
+[ X \in B] \space \colon= \{\omega \in \Omega \colon X(\omega) \in B, \}
+$$
+
+$$
+[X_1 \in B_1, \cdots, X_n \in B_n] \space \colon = \bigcap_{k=1}^{n}\{\omega \in \Omega \colon X_k(\omega) \in B_k\}
+$$
+and, for $A\subset\mathbb R^{n}$,
+
+$$
+[(X_1,\cdots,X_n) \in A] \space \colon = \{\omega \in \Omega \colon (X_1(\omega),\cdots,X_n(\omega))\in A\}
+$$
+
+
+
+
+
+Recall from the previous unit that all probabilistic information about a single random variable $X$ is contained in its distribution function: knowing it allows us to compute the probability of any event whose occurrence depends on the value taken by $X$.
+
+Two random variables may be different as functions defined on the sample space $\Omega$, yet have the **same distribution**; from a probabilistic point of view they convey exactly the same information and can be used interchangeably for the same purpose.
+
+**Example - Symmetry of the uniform $(0,1)$ distribution**
+Consider the experiment of selecting a real number at random in the interval $(0,1)$. Let $X$ denote this quantity, i.e.
+
+$$
+X \sim Uniform(0,1).
+$$
+Define another random variable
+$$
+Y=1-X
+$$
+
+Although $X$ and $Y$ are different functions on the same sample space—indeed $X(x)=x$ and $Y(x)=1-x$—they share a remarkable property: they have the same distribution, because the continuous uniform distribution on $(0,1)$ is symmetric about $x=0.5$.
+
+::: {.callout-note title="$Uniform(0,1)$"}
+#### $Uniform(0,1) in R & Python
+::: {.panel-tabset}
+### R
+```{r}
+#| label: Symm-unif-r
+#| code-fold: true
+
+set.seed(123)           # Reproducibility
+n <- 10000              # Number of simulations
+x <- runif(n)           # X ~ Uniform(0,1)
+y <- 1 - x              # Y = 1 - X
+
+hist(x, breaks = 30, freq = FALSE,
+     col = rgb(1,0,0,0.5), main = "Distribution of X and Y = 1 - X", xlab = "")
+hist(y, breaks = 30, freq = FALSE,
+     col = rgb(0,0,1,0.5), add = TRUE)
+legend("topright", legend = c("X", "Y = 1 - X"),
+       fill = c(rgb(1,0,0,0.5), rgb(0,0,1,0.5)))
+```
+### Python
+```{python}
+#| label: sym-unif-py
+#| code-fold: true
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Reproducibility
+np.random.seed(123)
+
+# Number of simulations
+n = 10000
+
+# X ~ Uniform(0,1)
+x = np.random.uniform(0, 1, n)
+
+# Y = 1 - X
+y = 1 - x
+
+# Histogram of X
+plt.hist(x,
+         bins=30,          # Number of bins
+         density=True,     # relative frequency
+         alpha=0.5,
+         color='red',
+         label='X')
+
+# Histogram of Y
+plt.hist(y,
+         bins=30,
+         density=True,
+         alpha=0.5,
+         color='blue',
+         label='Y = 1 - X')
+
+# 
+plt.title('Distribution of X and Y = 1 - X')
+plt.xlabel('Value')
+plt.ylabel('Density')
+plt.legend()
+plt.tight_layout()
+plt.show()
+```
+
+:::
+:::
+
+The histogram almos perfectly overlap, illustrating that $X$ and $Y$ are different as functions but identically distributed:
+
+$$
+X \stackrel{d}{=} Y
+$$
+
+This example clarifies the distinction between *random variables* as *functions* and *probability distributions*.
+
+**Example - Generating Exponential Variables from Uniforms**
+
+Suppose we wish to generate $n$ realizations of an exponential variable $Y\sim \mathrm{Exp}(lambda=1)$ starting from uniforms.
+
+*Method 1 - Classic inverse transform.* Generates $x_k\sim\mathrm{Uniform}(0,1)$, we may also take
+
+$$
+z_k = -ln(1-x_k), \space \space k=1,\cdots, n.
+$$
+Both transformations yield exponential samples with rate 1
+
+::: {.callout-note title="Exponential transformation"}
+#### Exponential transformation in R & Python
+::: {.panel-tabset}
+### R
+```{r}
+#| label: exp-transform-r
+#| code-fold: true
+
+set.seed(42)
+ n <- 10000
+ x <- runif(n)
+ y <- -log(x)
+ z <- -log(1 - x)
+
+hist(y, breaks = 50, freq = FALSE,
+     col = rgb(1,0,0,0.4), main = "y = -log(x) vs z = -log(1 - x)")
+hist(z, breaks = 50, freq = FALSE,
+     col = rgb(0,0,1,0.4), add = TRUE)
+curve(dexp(x, rate = 1), col = "black", lwd = 2, add = TRUE)
+legend("topright", legend = c("y = -log(x)", "z = -log(1 - x)", "Exp(1) density"),
+       fill = c(rgb(1,0,0,0.4), rgb(0,0,1,0.4), NA), border = NA,
+       lty = c(NA, NA, 1), col = c(NA, NA, "black"))
+```
+### Python
+```{python}
+#| label: exp-transform-py
+#| code-fold: true
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Reproducibility
+np.random.seed(42)
+
+# Number of simulations
+n = 10_000
+
+# X ~ Uniform(0,1)
+x = np.random.uniform(0, 1, n)
+
+# Transforms
+y = -np.log(x)        # y = -log(x)
+z = -np.log(1 - x)    # z = -log(1 - x)
+
+# Histogram of y
+plt.hist(y,
+         bins=50,
+         density=True,
+         alpha=0.4,
+         color='red',
+         label='y = -log(x)')
+
+# Histogram of z
+plt.hist(z,
+         bins=50,
+         density=True,
+         alpha=0.4,
+         color='blue',
+         label='z = -log(1 - x)')
+
+# Theoric curve Exp(1): f(t) = e^{-t},  t ≥ 0
+t = np.linspace(0, max(y.max(), z.max()), 400)
+plt.plot(t, np.exp(-t), 'k-', linewidth=2, label='Exp(1) density')
+
+# Graph
+plt.title('y = -log(x) vs z = -log(1 - x)')
+plt.xlabel('Value')
+plt.ylabel('Density')
+plt.legend()
+plt.tight_layout()
+plt.show()
+
+```
+
+:::
+:::
+
+Both histograms fit the theoretical density, showing that **multiple generators can produce the same distribution**.
+
+When a problem involves several random variables, knowing their marginal distribution is **not enough**; we must undestand how they relate -That is, their *dependency structure*, captured by
+
+- The join distribution;
+- measure such as covariance or correlation;
+- or more advanced tools such as copulas.
+
+The next two examples illustrate independence and dependence
 ## Conditional densities
 
 ## Conditional espected value
