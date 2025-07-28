@@ -10,12 +10,12 @@
 ### Joint Distribution Function
 Throughout this unit we assume a probability sapce $(\Omega,\mathcal{F},P)$ correspondig to a given random experiment.
 
-**Notation**. Given random variables
+Let us establish some **Notation**: Given random variables
 $$
 \begin{align}
 X \colon \Omega \longrightarrow
  \mathbb{R}
-\qquad
+\quad
 X_1,\cdots, X_n \colon \Omega \longrightarrow
  \mathbb{R}
  \end{align}
@@ -36,24 +36,30 @@ $$
 [(X_1,\cdots,X_n) \in A] \space \colon = \{\omega \in \Omega \colon (X_1(\omega),\cdots,X_n(\omega))\in A\}
 $$
 
-Recall from the previous unit that all probabilistic information about a single random variable $X$ is contained in its distribution function: knowing it allows us to compute the probability of any event whose occurrence depends on the value taken by $X$.
 
-Two random variables may be different as functions defined on the sample space $\Omega$, yet have the **same distribution**; from a probabilistic point of view they convey exactly the same information and can be used interchangeably for the same purpose.
+Recall from the previous unit that all probabilistic information about a single random variable $X$ is contained in its distribution function, since, having the latter, one can obtain the probability of any event whose occurrence or non-ocurrence depends on the value taken by $X$.
 
-**Example - Symmetry of the uniform $(0,1)$ distribution**
-Consider the experiment of selecting a real number at random in the interval $(0,1)$. Let $X$ denote this quantity, i.e.
+Two random variables may be different when seen as functions defined over the sample space $\Omega$, but be identical on terms of their distribution, and thus, from the probabilistic point of view, they give us exactly the same information and can therefore be used interchangeably for the same purpose.
+
+**Example - Symmetry of the uniform distribution $(0,1)$**
+Suppose we conduct a random experiment where we select a real number at random in the interval $(0,1)$. Let us denote this quantity as a random variable $X$. Mathematically, we say:
 
 $$
 X \sim Uniform(0,1).
 $$
-Define another random variable
+Now define a new random variable:
 $$
 Y=1-X
 $$
 
-Although $X$ and $Y$ are different functions on the same sample space—indeed $X(x)=x$ and $Y(x)=1-x$—they share a remarkable property: they have the same distribution, because the continuous uniform distribution on $(0,1)$ is symmetric about $x=0.5$.
+**What happens with the distribution of $Y$**
+Although $X$ and $Y$ are different functions defined on the same sample space -in fact, $X(x) =x$ and $Y(x)=1-x$ - they share a very special property: They have the **same distribution**.
 
-::: {.callout-note title="$Uniform(0,1)$"}
+This property is due to the simmetry of the continuous uniform distribution on $(0,1)$ with respect to the point $x=0.5$.
+
+We can verify this idea via simulation:
+::: {.callout-note title="$Uniform(0,1)$ simulation of $X$ and $Y$"}
+#### $Uniform(0,1) in R & Python
 ::: {.panel-tabset}
 ### R
 ```{r}
@@ -126,11 +132,20 @@ $$
 X \stackrel{d}{=} Y
 $$
 
-This example clarifies the distinction between *random variables* as *functions* and *probability distributions*.
+This example helps us understand the difference between:
 
-**Example - Generating Exponential Variables from Uniforms**
+- **Random variables as functions**
+- **Probability distributions**
 
-Suppose we wish to generate $n$ realizations of an exponential variable $Y\sim \mathrm{Exp}(lambda=1)$ starting from uniforms.
+it also shows how a simple transformation can generate a new variable with identical probabilistic properties.
+
+**Example: Simulating Exponential Variables from Uniforms**
+
+Suppose we want to generate $n$ random numbers that can be regarded as realization of a random variable $Y$ with exponential distribution parameter $\lambda=1$:
+
+$$
+Y \
+$$
 
 *Method 1 - Classic inverse transform.* Generates $x_k\sim\mathrm{Uniform}(0,1)$, we may also take
 
@@ -140,6 +155,7 @@ $$
 Both transformations yield exponential samples with rate 1
 
 ::: {.callout-note title="Exponential transformation"}
+#### Exponential transformation in R & Python
 ::: {.panel-tabset}
 ### R
 ```{r}
@@ -223,109 +239,6 @@ When a problem involves several random variables, knowing their marginal distrib
 - or more advanced tools such as copulas.
 
 The next two examples illustrate independence and dependence
-
-#### **Example - Random point inside a square (ndependent $X$ and $Y$)**
-
-Select a point uniformly at random inside the unit square with vertices $A(0,0), B(1,0),C(1,1),D(0,1)$ and $Y$ be its abscissa and ordinate. The marginals are
-
-$$
-F_X(x) = \begin{cases}
-0, & x \leq 0 \\
-x, & 0 < x < 1 \\
-1, & x \geq 1
-\end{cases}
-\quad\quad
-F_Y(y) = \begin{cases}
-0, & y \leq 0 \\
-y, & 0 < y < 1 \\
-1, & y \geq 1
-\end{cases}
-$$
-
-Knowing $X$ gives no nformation about $Y$; hence $X$ and $Y$ are **independent**.
-
-#### **Example 1.2 - Random point on the diagonal (Perfect dependence)**
-Now select a point uniformly on the line $y=x$ within the same square. Again the marginals are uniform on $(0,1)$, but here $Y=X$, so the variables are **perfectly dependet**
-
-| Characteristic | Example 1.1 | Example 1.2 |
-|---|---|---|
-| Selection region | Square area | Diagonal line |
-| Relation between $X$ and $Y$ | Independent | Functional dependence $(X=Y)$ |
-| Joint distribution | Product of marginals | Support only on $x=y$ |
-
-**Joint Distribution of a family of random variables**
-
-For $n$ random variables $X_1,\cdots X_n$, their hoint distribution is defined by
-
-$$
-F_{X_1,\cdots X_n}(x_1,\cdots x_n) = P[X_1\leq x_1,\cdots, X_n \leq x_n]
-$$
-
-it generalises the unvariate distribution function and contains both marginal information and dependence.
-
-Some basic properties:
-- it is non-decreasng and right-continuous in each argument.
-- Taking limits to $+\infty$ in one coordinate recovers the corresponding marginal distribution.
-
-### Joint Density Functions
-
-Wheb studying a single random variable, two important cases are determined by a **densirty function**: the discrete case and the absolutely continuous case. The ideas extend naturally to vectors of randomvariables.
-
-#### Discrete Bivariate Vector
-A pair $(X,Y)$ is a **discrete random vector** if there exists a finite countable set of points $(x_m,y_m)$ such that
-
-$$
-P[X=x_m,Y=y_m] >0, \quad \sum_{m}P[X=x_m,Y=y_m]=1
-$$
-the **joint probability mass function** is then
-
-$$
-f_{X,Y}(x,y) = P[X=x,Y=y]
-$$
-Probabilities oer sets are computed via double sums; for rectangles this yields
-
-$$
-F_{X,Y}(x,y)=\sum_{u\leq x}\sum_{v\leq y}f_{X,Y}(u,v)
-$$
-
-**Example**
-Let
-$$
-f_{X,Y}(x,y) = \begin{cases}
-cx, & x,y \in {1,\cdots, N}\\
-0,  & otw
-\end{cases}
-$$
-
-Find:
-
-- (a) $c$
-- (b) $P[X=Y]$
-- (c) $P[X<Y]$
-- (d) $P[X>Y]$
-
-*Solution*. Using $\sum_{x=1}^{N}\sum_{y=1}^{N} cx = 1$ we get
-
-$$
-c=\frac{2}{N^{2}(N+1)}
-$$
-Straightforward summations give
-
-$$
-P[X=Y]=\frac{1}{N}, \quad P[X<Y]=\frac{N-1}{3N}, \quad P[X>Y]=\frac{2(N-1)}{3N}
-$$
-
-*(R code for visualisation is included in the appendix)*
-
-#### Multivariate Discrete Vector
-
-Vector $(X_1, \cdots, X_n)$ taking countably many values $(x^{(m)}_1,\dots,x^{(m)}_n)$ are handled analogously, with joint pmf
-
-$$
-f_{X_1,\cdots,X_n}(x_1,\cdots,x_n)=P[X_1=x_1,\cdots,X_n=x_n]
-$$
-
-
 ## Conditional densities
 
 ## Conditional espected value
@@ -334,7 +247,7 @@ $$
 
 ## Covariance and correlation
 
-## Independence11
+## Independence
 
 ## Espected value vector and Covariance matrix
 
