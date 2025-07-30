@@ -27,5 +27,8 @@ format:
       - brand
     code-fold: true
     thebe: true
-
+    number-sections: true
+    math:
+      mathjax: true
+    equation-numbering: true
 

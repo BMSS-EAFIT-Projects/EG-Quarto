@@ -58,6 +58,7 @@ Although $X$ and $Y$ are different functions defined on the same sample space -i
 This property is due to the simmetry of the continuous uniform distribution on $(0,1)$ with respect to the point $x=0.5$.
 
 We can verify this idea via simulation:
+
 ::: {.callout-note title="$Uniform(0,1)$ simulation of $X$ and $Y$"}
 #### $Uniform(0,1) in R & Python
 ::: {.panel-tabset}
@@ -126,7 +127,7 @@ plt.show()
 :::
 :::
 
-The histogram almos perfectly overlap, illustrating that $X$ and $Y$ are different as functions but identically distributed:
+The histogram almos perfectly overlap, illustrating that $X$ and $Y$ are different as functions, they have the same distribution. That is:
 
 $$
 X \stackrel{d}{=} Y
@@ -144,15 +145,25 @@ it also shows how a simple transformation can generate a new variable with ident
 Suppose we want to generate $n$ random numbers that can be regarded as realization of a random variable $Y$ with exponential distribution parameter $\lambda=1$:
 
 $$
-Y \
+Y \sim Exp(1)
 $$
 
-*Method 1 - Classic inverse transform.* Generates $x_k\sim\mathrm{Uniform}(0,1)$, we may also take
+*Method 1 - Classic inverse transform.* Generates $x_k\sim\mathrm{Uniform}(0,1)$, then:
 
 $$
-z_k = -ln(1-x_k), \space \space k=1,\cdots, n.
+y_k = -ln(x_k), \quad k=1,\cdots, n.
 $$
-Both transformations yield exponential samples with rate 1
+follows an exponential distribution with parameter $\lambda=1$. This transformation is based on the inverse of the exponential cumulative distribution function.
+
+*Method 2 - Alternative Equivalent Trasnformation*
+We can also use:
+
+$$
+z_k = -ln(1-x_k), \quad k=1, \cdots, n
+$$
+Since $1-x_k \sim Uniform(0,1)$, this transformation also yields exponential variables.
+
+Next, we ran a simulation to compare the two transformations.
 
 ::: {.callout-note title="Exponential transformation"}
 #### Exponential transformation in R & Python
@@ -230,15 +241,539 @@ plt.show()
 :::
 :::
 
-Both histograms fit the theoretical density, showing that **multiple generators can produce the same distribution**.
+Both transformations produce samples that closely follow the theoretical exponential density. This shows that multiple generating functions can lead to the same distribution.
 
-When a problem involves several random variables, knowing their marginal distribution is **not enough**; we must undestand how they relate -That is, their *dependency structure*, captured by
+When a problem involves several random variables, knowing their marginal distribution is **not enough** to fully describe the phenomenon. it is also necessary to undestand how they relate to each other -Their **dependence struscture**, which can be captured via:
 
 - The join distribution;
-- measure such as covariance or correlation;
-- or more advanced tools such as copulas.
+- measure such as **covariance** or **correlation**;
+- or more advanced tools such as **copulas**.
 
-The next two examples illustrate independence and dependence
+Let us illustrate this point with two examples.
+
+**Examples of random variables: Independence and dependence**
+
+**Example 1.1: Random Point inside the Square**
+
+Consider the random experiment of selecting a point ar random inside the square with vertices $(0,0)$,$(1,0)$,$(1,1)$,$(0,1)$. Define the random variable $X$ and $Y$ as the x- and y-coordinates of the selected point, respectively.
+
+in this type of experiment, the probability that the selected point lies in a subset $A \subset \mathbb{R}^{2}$ equals the ratio of the area of $A\cap C$ to the area of $C$, where $C$ is the square.
+
+**Marginal Distributions:**
+$$
+F_{X}(x) = \begin{cases}
+0 & if & x\leq 0 \\
+x & if & 0<x<1 \\
+1 & if & x\geq 1
+\end{cases}
+\qquad
+F_{Y}(y)=\begin{cases}
+0 & if & y \leq 0\\
+y & if & 0 <y<1\\
+1 & if & y\geq 1
+\end{cases}
+$$
+
+**Observation:** Knowing the value of $X$ tells us nothing about $Y$, since $Y$ can range across the entire interval $(0,1)$. That is, $X$ and $Y$ are **indeoendent.**
+
+**Example 1.2: Random Point on the Diagonal**
+Now consider the experiment of selecting a point at random on the diagonal of slope 1 within the same square. Again, define $X$ and $Y$ as the x- and y-coordinates of the selected point.
+
+In the case, the probability that the point lies in a subset  $A\subset\mathbb{R}^{2}$ equals the restio of the length of $A\cap D$ to the lenght of $D$, where $D$ is the diagonal.
+
+**Marginal Distributions:**
+$$
+F_{X}(x) = \begin{cases}
+0 & if & x\leq 0 \\
+x & if & 0<x<1 \\
+1 & if & x\geq 1
+\end{cases}
+\qquad
+F_{Y}(y)=\begin{cases}
+0 & if & y \leq 0\\
+y & if & 0 <y<1\\
+1 & if & y\geq 1
+\end{cases}
+$$
+
+**Observation:** Although the marginal distribution function are exactly the same as in Example 1.1, the relationship between the variables is different: Here, knowing the value of $X$ immediately determines the value of $Y$, since they are equal: $Y=X$. Therefore, $X$ and $Y$ are **dependent.**
+
+**Conceptual comparison**
+- In the **Example 1.1**, the selection is made over the entire square. The variables $X$ and $Y$ exhibit **independence** behavior: the joint probability is the product of the marginals
+- In **Example 1.2**, the selection is restricted to a line. Knowing one coordinate completely determines the other: there is **functional dependence**
+
+| Characteristics | Example 1.1(Square) | Example 1.2 (Diagonal) |
+|---           |:---:         |---:          |
+| Selected region      | Square Area      | Diagonal line      |
+| Relation between $X$ and $Y$      | independent      | dependent      |
+| Marginal distribution      | $Uniform(0,1)$      |$Uniform(0,1)$    |
+| Joint distribution      | Product of marginals      | Support over the line $y=x$      |
+
+**Joint Distribution of a family of random variables**
+For a single random variable, the distribution function $F_{X}(x)=P(X \leq x)$ plays a central role, as it encapsulates all the probabilistic information about that variable.
+
+However, when dealing with a family of $n$ random variables $X_{1},X_{2}, \cdot, X_{n}$,. it is not enough to consider separately the marginal distribution functions of each:
+
+$$
+F_{X_{i}}(x_{i}) = P(X_{i} \leq x_i), \quad i=1,2,\cdots,n
+$$
+
+These functions describe the individual behavior of each variable but contain no information about how the variables relate to each other.
+
+**Example:** It may happen that two random variables, the central object of study is the **joint distribution function**, defined as follows:
+
+**Definition (Joint distribution function) (por numerar)**
+Let $X_1,X_2,\cdots,X_n$ be n random variables. The function $F_{X_1,X_2,\cdots,X_n}\colon \mathbb{R}^{n} \rightarrow [0,1]$, defined by:
+
+$$
+F_{$X_1,X_2,\cdots,X_n$}($x_1,x_2,\cdots,x_n$)=P[X_1\leq x_1, \cdots X_n \leq x_n]
+$$
+is called the **joint distribution function** of $$X_1,X_2,\cdots,X_n$.
+
+Let us illustrate this definition by finding the joint distribution function of $X$ and $Y$ in each of the two examples previously mentioned.
+
+**Proposition (por numerar)**
+Let $X$ and $Y$ be any two random variables, and let $F_{X,Y}$ be their joint distribution function. Then:
+1. $\lim_{x\rightarrow \infty} F_{X,Y}(x,y) = F_{Y}(y) \quad \forall y \in \mathbb{R}$.
+
+2. $\lim_{y\rightarrow \infty} F_{X,Y}(x,y) = F_{X}(x) \quad \forall x \in \mathbb{R}$.
+**proof**
+Let $y\in \mathbb{R}$, and let $(x_n)$ be a monotonically increasing sequence of real numbers such that $\lim_{n\rightarrow \infty} x_n = \infty$. then, the sequence of events $[X\leq x_n, Y \leq y]$ is non-decreasing, and:
+
+$$
+[Y \leq y]=\bigcup_{n=1}^{\infty}[X\leq x_n, Y\leq y]
+$$
+So:
+$$
+F_{Y}(y)=P[Y\leq y] = \lim_{n\rightarrow \infty}P[X\leq x_n, Y \leq y] = \lim_{n \rightarrow \infty}F_{X,Y}(x_n,y)
+$$
+the second identity is proved similarly.
+
+This result extends to the case of $n$ random variables, just like other properties of the distribution function of a single variable. These properties, whose proofs are left as exercises, are started below:
+
+**Proposition (por numerar)**
+Let $X_1,X_2,\cdots X_n$ be $n$ random variables, and let $F_{X_1,X_2,\cdots X_n}$ be their joint distribution function. Then, for each $(x_1,x_2, \cdots x_n) \in \mathbb{R}^{n-1}$, the following hold:
+1. The function
+$$
+x \mapsto F_{X_1,X_2,\cdots X_n}(x_1,\cdots, x_{j-1},x,x{j+1},\cdots x_n)
+$$
+is non-decreasing and right-continuous.
+
+2. $\lim_{x\rightarrow \infty}F_{X_1,X_2,\cdots X_n}(x_1,\cdots, x_{j-1},x,x{j+1},\cdots x_n) = F_{X_1,\cdots, X_{j-1},X{j+1},\cdots X_n}(x_1,\cdots, x_{j-1},x,x{j+1},\cdots x_n)$
+
+3. $\lim_{x \rightarrow -\infty} F_{X_1,\cdots X_n}(x_1,\cdots, x_{j-1},x,x{j+1},\cdots x_n)=0$
+
+These conditions are necessary, but **not sufficient**, for a function $F$ to be a joint distribution function.
+
+In reality, a distribution function represents a **measure**. in the case of a single variable, it corresponds to a measure over subsets of real numbers. In the case of the distribution function of two random variables $X$ and $Y$, it corresponds to a measure over subsets of $\mathbb{R}^{2}$.
+
+in such case, this measure begins by assigning the value
+$$
+F_{X,Y}(x,y) = P[X\leq x, Y\leq y]
+$$
+to the infinite rectangle $(-\infty, x] \times (-\infty,y]$. More generally, if $x_1 \leq x_2$ and $y_1\leq y_2$, and $C$ is the rectangle $(x_1, x_2] \times (y_1,y_2]$, then:
+
+$$
+P[(X,Y) \in C] = F_{X,Y}(x_2,y_2) - F_{X,Y}(x_1,y_2) - F_{X,Y}(x_2,y_1) + F_{X,Y}(x_1,y_1)
+$$
+Thus, this value would be the measure assigned to rectangle $C$.
+
+Note in particular, the quantity
+$$
+F_{X,Y}(x_2,y_2) - F_{X,Y}(x_1,y_2) - F_{X,Y}(x_2,y_1) + F_{X,Y}(x_1,y_1)
+$$
+is non-negative regardless of the joint distribution function $F_{X,Y}$.
+
+it can be shown that this additional condition is sufficient for a function of two variables to represent the **joint distribution** of two random variables. That is, we have the following result:
+
+**Proposition (por numerar)**
+A function $F\colon \mathbb{R}^{2} \rightarrow \mathbb{R}$ represents the joint distribution function of a pair of random variables $X,Y$ if and only if the following conditions are satisfied:
+1. For each $y\in \mathbb{R}$, the function $x \mapsto F(x,y) is non-decreasing, right-continuous, and
+$$
+\lim_{x\rightarrow -\infty}F(x,y)=0
+$$
+
+2. For each $x\in \mathbb{R}$, the function $y \mapsto F(x,y)$ is non decreasing, right-continuous, and
+$$
+\lim_{y\rightarrow -\infty}F(X,Y)= 0
+$$
+
+3. The functions $G\colon \mathbb{R} \rightarrow [0,1]$ and $H\colon \mathbb{R} \rightarrow [0,1]$, defined by:
+$$
+G(y) = \lim_{x\rightarrow \infty}F(x,y), \quad H(x)=\lim_{y\rightarrow \infty}F(x,y)
+$$
+are valid distribution functions of a single variable.
+
+4. if $x_1\leq x_2$ and $y_1 \leq y_2$, then:
+$$
+F(x_2,y_2) - F(x_1,y_2) - F(x_2,y_1) + F(x_1,y_1) \geq 0
+$$ 
+
+Note that in the example considered above, we have:
+$$
+F(1, 1) − F(0, 1) − F(1, 0) + F(0, 0) = −1
+$$
+This means that if $F$ were the joint distribution function of a pair of random variables $X,Y$ and $C$ were the square $0< x \leq 1, 0<y\leq 1$ then:
+$$
+P[(X,Y) \in C] = -1
+$$
+which is a contradiction.
+
+In general, the joint distribution function of $n$ random variables represents a **measure on** $\mathbb{R}^{n}$. The family of random variables $X_1,X_2, \cdots X_n$ can be viewed as a function from $\Omega$ into $\mathbb{R}^{n}$ that assigns to each $\omega \in \Omega$ the vector $(X_1(\omega),X_2(\omega), \cdots, X_n(\omega))$; in this way, we can say that the random variables form a **random vector** $(X_1,X_2, \cdots, X_n)$.
+
+### Joint density functions
+When studying the distribution of a single random variable, there are two cases in which the variable is determined by a density function: the discrete case and the absolutely continuous case.(Habría que definir
+que es absolutamente continua en el caso uni variado, si no poner la definición
+como nota al pie acá.)
+This situation can be extended to a family of random variables, which is developed below. For clarity of exposition, we first address the case of a family consisting of two random variables, and then state the results for the general case.
+
+**Definition (Bivariate discrete random vector)(por numerar)**
+A pair of random variables $X,Y$ is said to form a **discrete random vector** if there exists a finite or countably infinite collection of vectors $(x_1, y_1), (x_2,y_2),\cdots$ such that:
+
+1. $P[X=x_m, Y=y_m] > 0 \quad \forall m$
+2. $\sum_{m}P[X=x_m, Y=y_m] = 1$
+
+in this case, the function $f_{X,Y}\colon \mathbb{R}^{2} \rightarrow [0,1]$, defined by
+$$
+f_{X,Y}(x,y) = P[X=x,Y=y]
+$$
+is called the **joint density function** of the vector $(X,Y)$.
+The property of **countable additivity** implies the following relationship:
+$$
+F_{X,Y}(x,y) = \sum_{(u,v)\in \mathbb{R}^{2} u \leq x, v\leq y} f_{X,Y}(u,v)
+$$
+More generally, if $A \subset \mathbb{R}^{2}$, the same property yields:
+
+$$
+\begin{equation}
+P[(X,Y) \in A] = \sum_{\{(x,y)\in\mathbb{R}^2\,:\,(x,y)\in A\}} f_{X,Y}(x,y)
+\end{equation}
+$$
+
+This expression is very useful for computing probabilities of events whose occurence depends on the value of both $X$ and $Y$.
+
+**Example 1.9 (por numerar)**
+Let $(X,Y)$ be a discrete random vector with joint density function given by:
+
+$$
+f_{X,Y}(x,y) = \begin{cases}
+cx & if \quad x,y \in \{1,2,\cdots n\}\\
+0 & otherwise
+\end{cases}
+$$
+
+where $N$ is a positive integer. Find:
+1. the value of $c$
+2. $P[X=Y]$
+3. $P[X<Y]$
+4. $P[X>Y]$
+
+**Solution**
+1. 
+$$
+\sum_{x=1}^{N} \sum_{y=1}^{N} f_{X,Y}(x, y) = \sum_{x=1}^{N} \sum_{y=1}^{N} cx = c \sum_{x=1}^{N} \sum_{y=1}^{N} x = cN \sum_{x=1}^{N} x = cN \cdot \frac{N(N+1)}{2}
+$$
+Thus
+$$
+c = \frac{2}{N^{2}(N+1)}
+$$
+
+
+2. 
+$$
+P[X = Y] = \sum_{x=1}^{N} f_{X,Y}(x, x) = \sum_{x=1}^{N} cx = c \sum_{x=1}^{N} x = \frac{2}{N^2(N+1)} \cdot \frac{N(N+1)}{2} = \frac{1}{N}
+$$
+
+3. 
+$$
+P[X < Y] = \sum_{x=1}^{N-1} \sum_{y=x+1}^{N} f_{X,Y}(x, y) = \sum_{x=1}^{N-1} \sum_{y=x+1}^{N} cx = c \sum_{x=1}^{N-1} x(N - x)
+$$
+We simplify the last sum:
+$$
+= c \left[ N \sum_{x=1}^{N-1} x - \sum_{x=1}^{N-1} x^2 \right]
+$$
+Using lnown formulas:
+$$
+\sum_{x=1}^{N-1} x = \frac{(N-1)N}{2} \quad \sum_{x=1}^{N-1} x^2 = \frac{N(N-1)(2N-1)}{6}
+$$
+Thus.
+$$
+P[X<Y] = \frac{N-1}{3N}   
+$$
+
+4. 
+$$
+P[X > Y] = 1 - P[X = Y] - P[X < Y] = 1 - \frac{1}{N} - \frac{N - 1}{3N} = \frac{2(N - 1)}{3N}
+$$
+
+Note that in the type of problems illustrated by the previous example, one generally needs to compute the value of a double summation. This value can be obtained either by fixing $x$; or by fixing $y$ first and summing over the corresponding values of $x$, then completing the summation over $y$.
+
+This is equivalent to using one of the following two methods:
+$$
+\begin{equation}
+P[(X,Y) \in A] = \sum_x P[(X,Y) \in A, X=x] = \sum_x P[(x,Y)\in A, X=x] = \sum_x \sum_{y \colon (x,y) \in A} P[X=x,Y=y]
+\end{equation}
+$$
+
+$$
+\begin{equation}
+P[(X,Y) \in A] = \sum_y P[(X,Y) \in A,Y=y]=\sum_y P[(X,y) \in A, Y=y] = \sum_y \sum_{x \colon (x,y) \in A}P[X=x,Y=y]
+\end{equation}
+$$
+
+::: {.callout-note title="Example 1.9"}
+#### Example 1.9 
+::: {.panel-tabset}
+### R
+```{r}
+#| label: cx-example-r
+#| code-fold: true
+
+# Parameters
+N <- 10
+c <- 2 / (N^2 * (N + 1))
+
+# Create grid of points
+grid <- expand.grid(x = 1:N, y = 1:N)
+grid$f <- c * grid$x
+
+# Classify region
+grid$region <- with(grid, ifelse(x < y, "X < Y",
+                          ifelse(x == y, "X = Y", "X > Y")))
+
+# Color palette by region
+region_colors <- c("X < Y" = "blue",
+                   "X = Y" = "green",
+                   "X > Y" = "red")
+
+# Load ggplot2
+library(ggplot2)
+
+# Plot
+ggplot(grid, aes(x = x, y = y)) +
+  geom_tile(aes(fill = f), alpha = 0.4) +
+  geom_point(aes(color = region), size = 4) +
+  scale_color_manual(values = region_colors) +
+  scale_fill_gradient(low = "white", high = "darkred") +
+  labs(x = "x", y = "y", fill = "f(x,y)", color = "Region") +
+  theme_minimal() +
+  theme(panel.grid = element_blank())
+```
+### Python
+```{python}
+#| label: cx-example-py
+#| code-fold: true
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from matplotlib.lines import Line2D
+
+# Parámetros
+N = 10
+c = 2 / (N**2 * (N + 1))
+
+# Crear grilla de puntos
+x_vals = np.arange(1, N + 1)
+y_vals = np.arange(1, N + 1)
+grid = pd.DataFrame([(x, y) for x in x_vals for y in y_vals], columns=["x", "y"])
+grid["f"] = c * grid["x"]
+
+# Clasificar regiones
+grid["region"] = np.where(grid["x"] < grid["y"], "X < Y",
+                   np.where(grid["x"] == grid["y"], "X = Y", "X > Y"))
+
+# Asignar colores
+region_colors = {"X < Y": "blue", "X = Y": "green", "X > Y": "red"}
+grid["region_color"] = grid["region"].map(region_colors)
+
+# Crear figura
+fig, ax = plt.subplots(figsize=(8, 8))
+
+# Dibujar fondo con intensidad f(x,y)
+pivot_f = grid.pivot(index="y", columns="x", values="f")
+sns.heatmap(pivot_f, cmap="Reds", cbar_kws={'label': 'f(x,y)'}, alpha=0.4,
+            linewidths=0.5, linecolor='gray', ax=ax);
+
+# Dibujar puntos coloreados
+for _, row in grid.iterrows():
+    _ = ax.plot(row["x"] - 0.5, row["y"] - 0.5, 'o',
+                color=row["region_color"], markersize=10)
+
+# Ajustes de ejes
+ax.set_xticks(np.arange(N))
+ax.set_yticks(np.arange(N))
+ax.set_xticklabels(np.arange(1, N + 1))
+ax.set_yticklabels(np.arange(1, N + 1))
+ax.invert_yaxis()
+ax.set_xlabel("x")
+ax.set_ylabel("y")
+
+# Leyenda personalizada
+legend_elements = [Line2D([0], [0], marker='o', color='w', label=label,
+                          markerfacecolor=color, markersize=10)
+                   for label, color in region_colors.items()]
+_ = ax.legend(handles=legend_elements, title="Region", loc='upper left', bbox_to_anchor=(1.05, 1))
+
+plt.tight_layout()
+plt.show()
+```
+
+:::
+:::
+For example, part 3 of the previous example (example 1.9) can also be computed in the following way:
+$$
+P[X<Y] = \sum_{y=1}^{N}P[X<Y,Y=y] = \sum_{y=1}^{N}P[X<y,Y=y]
+$$
+Note that for $y=1$, the event $X<1$ is empty since $x \in \{1,\cdots ,N \}$. Thus:
+$$
+P[X<Y]=\sum_{y=2}^{N}\sum_{x=1}^{y-1}P[X=x,Y=y]=c\sum_{y=2}^{N}\sum_{x=1}^{y-1} x
+$$
+Using the identity $\sum_{x=1}^{y-1}=\frac{y(y-1)}{2}$, we get:
+$$
+=c\sum_{y=2}^{N}\frac{y(y-1)}{2}=\frac{c}{2}[\sum_{y=2}^{N} y^{2} - \sum_{y=2}^{N}y]
+$$
+Since:
+$$
+\sum_{y=2}^{N}y^{2} = \sum_{y=1}^{N}y^{2}-1 \quad \text{and} \sum_{y=2}^{N}y = \sum_{y=1}^{N}y-1
+$$
+we can write:
+$$
+P[X<Y] = \frac{c}{2}[\sum_{y=1}^{N} y^{2} - \sum_{y=1}^{N} y ]
+$$
+Substituting the standard formulas:
+$$
+\sum_{y=1}^{N-1} y = \frac{(N-1)N}{2} \quad \sum_{y=1}^{N-1} y^2 = \frac{N(N-1)(2N-1)}{6}
+$$
+we get:
+$$
+P[X<Y] = \frac{N-1}{3N}   
+$$
+
+We now proceed to extend what was done above for the case of 2 **random variables** to the case of $n$ variables.
+
+**Definition (Discrete random vector in \mathbb{R}^{n})(por numerar)**
+A random vector $(X_1,X_2, \cdots X_n)$ in $\mathbb{R}^{2}$ is said to be **discrete** if there exist a finite or countably infinite collection of vectors $(x_1^{(1)},x_2^{(1)},\cdots,x_n^{(1)}),(x_1^{(2),\cdots, x_1^{(2)}}),\cdots$ such that:
+1. $P[X_1=x_{1}^{(m)},\cdots,X_n=x_{n}^{(m)}]>0 \quad \forall m$
+2. $\sum_m P[X_1 = x_1^{(m)}, \cdots, X_n=x_n^{(m)}] =1$
+
+In this case, the function
+$$
+f_{X_1,\cdots, X_n}\colon \mathbb{R}^{n} \rightarrow [0,1]
+$$
+defined by
+$$
+_{X_1,\cdots, X_n}(x_1,\cdots,x_n) = P[X_1=x_1, \cdots, X_n=x_n]
+$$
+is called the **joint density function** of the vector $(X_1,\cdots, X_n)$
+
+The property of countable additivity implies the following relationship:
+$$
+F_{X_1,\cdots,X_n}(x_1,\cdots,x_n)= \sum f_{X_1,\cdots,X_n}(y_1,\cdots,y_n)
+$$
+More generally, if $A\subset \mathbb{R}^{n}$, the property of countable additivity property also implies:
+$$
+P[(X_1,\cdots, X_n)\in A] = \sum f_{X_1,\cdots,X_n}(x_1,\cdots,x_n)
+$$
+
+**Definition (Multinomial distribution)(por numerar)**
+A random vector $(N_1,\cdots,N_r)$ is said to follow a **multinomial distribution** with parameters $n,p_1,\cdots,p_r$ if its joint probability mass function is given by:
+$$
+f_{N_1,\cdots,N_r}(n_1,\cdots,n_r) = \begin{cases}
+\frac{n!}{n_1!\cdots n_r!}p_1^{n_1}\cdots p_r^{n_r} &
+if \quad \sum_{k=1}^{r}n_k=n, & n_k\in \{0,1,\cdots,n\}\\
+0 & otherwise
+\end{cases}
+$$
+
+**Proposition (por numerar)**
+Let $(N_1,\cdots, N_r)$ be a random vector with a multinomial distribution of parameters $n,p_1,\cdots,p_r$. Then, for any subcollection $N_{i_1},\cdots,N_{i_s}$ selected from thge set $\{N_1,\cdots N_r\}$, the random vector
+$$
+(N_{i_1}, \cdots, N_{i_s}, n - \sum_{j=1}^{s}N_{i_j})
+$$
+follows a **multinomial distribution** with parameters $n,p_1,\cdots,p_r, 1- \sum_{j=1}^{s}p_{i_j}$
+**proof**
+First observe that the vector $(N_1,\cdots,N_r)$ follows a multinomial distribution with parameters $n,p_1,\cdots,p_r$ if and only if $N_r = n-\sum_{k=1}^{r-1}N_k$ and for any non-negative integers $n_1,\cdots, n_{r-1}$ such that $\sum_{k=1}^{r-1}n_k \leq n$, we have:
+$$
+P[N_1=n_1,\cdots,N_{r-1}=n_{r-1}] = \frac{n!}{n_1!\cdots n_{r-1}!(n-n_1-\cdots -n_{r-1})!}p_{1}^{n_1}\cdots p_{r-1}^{n_r-1}(1-p_1-\cdots -p_{r-1})^{n-n_1-\cdots-n_r}
+$$
+
+Nowm, it suffices to prove the result for $s=r-2$, because the general case for any $s\in \{1,\cdots, r-2\}$ can be obtained by applying the result $r-s-1$ times. Also, by reordering the collection $(N_1,\cdots,N_r)$, we may assume $i_k=k$.
+
+Thus, for $s=r-2$ and non-negative integers $n_1,\cdots n_{r-2}$ such that $m=\sum_{k=1}^{r-2}n_k \leq n$, we have:
+$$
+P[N_1=n_1,\cdots,N_{r-2}=n_{r-2}] = \sum_{n_{r-1}=0}^{n-m} P[N_1=n_1,\cdots,N_{r-1}=n_{r-1}]
+$$
+$$
+=\sum_{n_{r-1}=0}^{n-m}\frac{n!}{n_1!\cdots n_{r-1}!(n-m-n_{r-1})!}p_{1}^{n_1}\cdots p_{r-1}^{n_r-1}(1-p_1-\cdots-p_{r-1})^{n-m-n_{r-1}}
+$$
+Faactoring terms putside the summation:
+$$
+=\frac{n!}{n_1!\cdots n_{r-1}!(n-m-n_{r-1})!}p_{1}^{n_1}\cdots p_{r-2}^{n_r-2}\sum_{n_{r-1}=0}^{n-m}\binom{n-m}{n_{r-1}}p_{r-1}^{n_{r-1}}(1-p_1-\cdots-p_{r-1})^{n-m-n_{r-1}}
+$$
+$$
+=\frac{n!}{n_1!\cdots n_{r-1}!(n-m-n_{r-1})!}p_{1}^{n_1}\cdots p_{r-2}^{n_r-2}(1-p_1-\cdots-p_{r-1})^{n-m}
+$$
+Which proves that $(N_1,\cdots,N_{r-2},n-\sum_{k=1}^{r-2}N_k)$ follows a multinomial distribution with parameters $n,p_1,\cdots, p_{r-2}, 1-\sum_{k=1}^{r-2}p_k$.
+
+**Corolary (por numerar)**
+Let $(N_1,\cdots,N_r)$ follows a multinomial distribution with parameters $n,p_1,\cdots,p_r$, then, for $k\in\{1,\cdots r\}$, the random variable $N_k$ follows a binomial distribution of parameters $p_k$
+
+**Applied context**
+In an electronic sensor manufacturing palnt, each sensor produced can be classified into one of the following categories after quality control:
+- $e_1$:**Approved**(probability $p_1=0.8$)
+- $e_2$:**Requires adjustment**(probability $p_2$=0.15)
+- $e_3$:**Rejected**(probability $p_3=0.05$)
+
+Suppose $n=20$ sensors are randomly selected. Let $(N_1,N_2,N_3)$ be the random vector counting how many sensors fall into each category.This vector follows a **multinomial distribution** with parameters $(n,p_1,p_2,p_3)$.
+
+**Probability mass function**
+The joint probability mass function of the multinomial distribution is given by:
+$$
+f(n_1,\cdots,n_r) = \begin{cases}
+\frac{n!}{n_1!\cdots n_r!}p_1^{n_1}\cdots p_r^{n_r} & if \quad \sum_{k=1}^{r}n_k=n\\
+0 & otherwise
+\end{cases}
+$$
+**Example: Calculating the probability of specific outcome**
+What is the probability that, in batch of 20 sensors, exactly 16 are approved, 3 requiere adjustment, and 1 is rejected?
+$$
+f(16,3,1)=\frac{20!}{16!3!1!}(0.8)^{16}(0.15)^{3}(0.05)
+$$
+
+
+::: {.callout-note title="Example sensor"}
+#### Example sensor 
+::: {.panel-tabset}
+### R
+```{r}
+#| label: sensor-example-r
+#| code-fold: true
+
+n <- 20
+p <- c(0.80, 0.15, 0.05)
+outcome <- c(16, 3, 1)
+prob <- dmultinom(outcome, size = n, prob = p)
+round(prob, 6)
+```
+### Python
+```{python}
+#| label: sensor-example-py
+#| code-fold: true
+from scipy.stats import multinomial
+import numpy as np
+
+n = 20
+p = [0.80, 0.15, 0.05]
+outcome = [16, 3, 1]
+
+prob = multinomial.pmf(outcome, n=n, p=p)
+
+round(prob, 6)
+```
+
+:::
+:::
 ## Conditional densities
 
 ## Conditional espected value
