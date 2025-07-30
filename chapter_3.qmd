@@ -692,7 +692,7 @@ $$
 (N_{i_1}, \cdots, N_{i_s}, n - \sum_{j=1}^{s}N_{i_j})
 $$
 follows a **multinomial distribution** with parameters $n,p_1,\cdots,p_r, 1- \sum_{j=1}^{s}p_{i_j}$
-**proof**
+**Proof**
 First observe that the vector $(N_1,\cdots,N_r)$ follows a multinomial distribution with parameters $n,p_1,\cdots,p_r$ if and only if $N_r = n-\sum_{k=1}^{r-1}N_k$ and for any non-negative integers $n_1,\cdots, n_{r-1}$ such that $\sum_{k=1}^{r-1}n_k \leq n$, we have:
 $$
 P[N_1=n_1,\cdots,N_{r-1}=n_{r-1}] = \frac{n!}{n_1!\cdots n_{r-1}!(n-n_1-\cdots -n_{r-1})!}p_{1}^{n_1}\cdots p_{r-1}^{n_r-1}(1-p_1-\cdots -p_{r-1})^{n-n_1-\cdots-n_r}
@@ -760,20 +760,143 @@ round(prob, 6)
 ```{python}
 #| label: sensor-example-py
 #| code-fold: true
-from scipy.stats import multinomial
-import numpy as np
-
-n = 20
-p = [0.80, 0.15, 0.05]
-outcome = [16, 3, 1]
-
-prob = multinomial.pmf(outcome, n=n, p=p)
-
-round(prob, 6)
+"En mantenimiento"
 ```
 
 :::
 :::
+
+
+::: {.callout-note title="Example sensor batch 10000 sensors"}
+#### Example sensor with $n=10000$ 
+::: {.panel-tabset}
+### R
+```{r}
+#| label: sensor10000-example-r
+#| code-fold: true
+set.seed(123)
+simulaciones <- rmultinom(n = 10000, size = 20, prob = p)
+df <- as.data.frame(t(simulaciones))
+colnames(df) <- c("Approved", "Adjustment", "Rejected")
+
+# Relative frequency table
+tabla <- as.data.frame(table(df))
+tabla$Prob <- tabla$Freq / sum(tabla$Freq)
+
+# Visualization with ggplot2
+library(ggplot2)
+ggplot(tabla, aes(
+  x = as.numeric(as.character(Approved)),
+  y = as.numeric(as.character(Adjustment)),
+  size = Prob)) +
+  geom_point(alpha = 0.6, color = "steelblue") +
+  labs(
+    title = "Multinomial Distribution in Quality Control",
+    x = "Approved Sensors",
+    y = "Sensors Requiring Adjustment",
+    size = "Relative Frequency") +
+  theme_minimal()
+
+```
+### Python
+```{python}
+#| label: sensor10000-example-py
+#| code-fold: true
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# 1. Fijar semilla y parámetros
+np.random.seed(123)
+n_simulaciones = 10000
+size = 20
+p = [0.80, 0.15, 0.05]
+
+# 2. Simular datos multinomiales
+simulaciones = np.random.multinomial(n=size, pvals=p, size=n_simulaciones)
+
+# 3. Convertir a DataFrame
+df = pd.DataFrame(simulaciones, columns=["Approved", "Adjustment", "Rejected"])
+
+# 4. Calcular frecuencias relativas
+tabla = df.value_counts().reset_index(name="Freq")
+tabla["Prob"] = tabla["Freq"] / tabla["Freq"].sum()
+
+# 5. Visualizar usando matplotlib
+plt.figure(figsize=(10, 6))
+scatter = plt.scatter(
+    tabla["Approved"], tabla["Adjustment"],
+    s=tabla["Prob"] * 5000,  # Escalamos tamaño para visibilidad
+    alpha=0.6,
+    color="steelblue"
+)
+plt.title("Multinomial Distribution in Quality Control")
+plt.xlabel("Approved Sensors")
+plt.ylabel("Sensors Requiring Adjustment")
+plt.grid(True)
+plt.show()
+```
+
+:::
+:::
+
+**Final reflection**
+The multinoial distribution is useful in contexts such as:
+- Quality of products with multiple categories
+- Biostatistics (multiple clinical outcome)
+- Automatic classification in engineering and machine learning
+It generalizes the binomial distribution and provides a powerful tool for modeling multiple categorical outcome in repeated experiments
+
+**Definition of density function in the n-dimensional absolutely continuous case**
+The definition of a density function in the absolutely continuous case for n-dimensions is similar to the one varaible case.
+
+**Definition (Absolutely continuous random vector)(por numerar)**
+The joint distribution function
+$$
+F_{X_1,\cdots,X_n}
+$$
+of the random variables $X_1,\cdots,X_n$ is said to be **absolutely continuous** if there exists an integrable function
+$$
+f_{X_1,\cdots,X_n}\colon \mathbb{R}^{n} \rightarrow \mathbb{R}
+$$
+Such that:
+$$
+F_{X_1,\cdots,X_n} = \int_{-\infty}^{x_1}\cdots \int_{-\infty}^{x_n}f_{X_1,\cdots,X_n}(y_1,\cdots,y_n)dy_n\cdots dy_1 
+$$
+for any vector $(x_1,\cdots,x_n)$.
+
+In this case, we also say that the random variables $X_1,\cdots X_n$ form an absolutely continuous random vector, and the function $f_{X_1,\cdots,X_n}$ is called a joint density function of $X_1,\cdots,X_n$.
+
+Just like in the case of a single random variable, when a joint density function of $n$ random variables $X_1,\cdots,X_n$ exist, it is not unique. In fact, given one such function, we can modify its value at a finite number of points, and the new function is still a valid joint density function of $X_1,\cdots,X_n$.
+
+Given a vector $(x_1,\cdots,x_n)\in \mathbb{R}^{n}$, define:
+$$
+A=\{(y_1,\cdots,y_n) \space | \space y1\leq x_1 , \cdots, y_n\leq x_n \}
+$$
+Then the property that charaterizes a joint density function of $X_1,\cdots,X_n$ can be expressed as:
+$$
+P[(X_1,\cdots,X_n)\in A] = \int \cdots \int f_{X_1,\cdots,X_n}(y_1,\cdots, y_n)dy_1\cdots dy_n
+$$
+it can be shown that this same relation holds for any subset $A\subset\mathbb{R}^{n}$ for which the integral
+$$
+\int f_{X_1,\cdots,X_{n}}(y_1,\cdots,y_n)dy_1\cdots dy_n
+$$
+is well defined.
+
+**Example 1.16 (por numerar)**
+Let $X$ and $Y$ be two random variables with joint density function given by:
+$$
+f(x,y) = \begin{cases}
+\frac{1}{y}e^{\frac{-x}{y}e^{-y}} & if & x>0,y>0\\
+0 & otherwise
+\end{cases}
+$$
+Find:
+(a) P[X<2Y]
+(b) P[Y>2X]
+**solution**
+
+
 ## Conditional densities
 
 ## Conditional espected value
