@@ -28,6 +28,12 @@ The first step in mastering any programming language is becoming familiar with i
 In practice, your code is passed to an interpreter or compiler that translates those human-readable instructions into machine language the hardware can execute.
 
 ### Data types.
+Understanding data types is essential because it defines what kind of operations you can perform on a variable.
+Mismatched types—like trying to add text to a number—often cause errors or unexpected results.
+
+>**Tip:** Understanding data types is key to avoiding unexpected results.  
+>Always check the type of your variables before performing operations on them.
+
 Before writing any analysis, it’s essential to know the basic **data types** that both R and Python offer.  
 In the next code block you’ll see how to **create variables**, **inspect their type**, and **compare the syntax** side by side.
 
@@ -122,6 +128,13 @@ Every operation you perform on a variable depends on its type. For example, you 
 Now that you know the basic types, let's move on to the structures that group them: vectors in R and lists/tuples in Python.
 
 ### Data structures.
+Data structures determine how information is stored and accessed in memory.
+R is built around vectors as its fundamental data structure, while Python's base structures are lists and dictionaries.
+Choosing the right structure makes your code more efficient and easier to read.
+
+>**Tip:** Choose the data structure that best fits your task—vectors and lists in R, or lists and dictionaries in Python.  
+>Using the right structure will make your code simpler and faster.
+
 Data structures allow us to group and organize multiple elements.  In this section we will see how to create and manipulate the most common collections in R and Python, comparing syntax and behaviors.
 
 ::: {.callout-note title="Data structures"}
@@ -196,11 +209,18 @@ print(v[1])   # "a"
 v = ["a", "b", "c"]
 print(v[0])   # "a"
 ```
-
 :::
 :::
+>**Tip:** Remember that R indexes start at 1, while Python indexes start at 0.  
+>This difference can cause off-by-one errors if you switch between languages.
 
 ### Importing packages
+Packages extend the functionality of your base language. Some add entirely new capabilities, while others improve on built-in functions.
+Organizing all your package imports at the top of your script makes dependencies clear and avoids runtime surprises.
+
+>**Tip:** Keep your package imports organized at the top of your script.  
+>This makes it easier to see dependencies and avoids surprises when running the code later.
+
 Before diving deeper into using R to solve statistical problems of any kind, its essential to understand how to extend the functionality of your programming enviroment. Both R an Python rely on external packages. Collections of functions and tools developed by the community to perform specialized tasks. in this section we'll walk you through how to install and manage packages in both languages so you can confidently access the tools needed for any analysis you aim to perform.
 
 ::: {.callout-note title="Importing packages"}
@@ -240,32 +260,476 @@ import pandas as pd
 :::
 :::
 
-### Exercises
+### Reading and Writing Data
+The ability to read from and write to files allows you to work with real-world datasets stored in formats like CSV and Excel.
+Choosing between formats often depends on compatibility, size, and ease of sharing—CSV is lightweight and widely supported, while Excel supports multiple sheets and formatting.
 
-In this section, you’ll find a set of exercises along with their respective solutions in both Python and R. Try solving them on your own first—there’s often more than one way to reach the same result, so don’t hesitate to explore alternative approaches. You might discover a different (and even better) solution!
+Once you know how to load packages, the next essential skill is reading and writing data files.
+In most cases, datasets are stored in formats such as **CSV**, **Excel**, or **TXT**.  
+R and Python each provide multiple functions to accomplish this; here we focus on the most common and beginner-friendly options.
 
-
-#### Exercise #1
-Test your knowledg in variable signation
-
-::: {.callout-note title="Excercise"}
+::: {.callout-note title="Example: Reading and writing CSV files"}
+#### Reading and writing CSV files
 ::: {.panel-tabset}
 ### R
 ```{r}
-#| label: excercise-1-r
+#| label: reading-R
 #| code-fold: true
+# Read a CSV file
+data <- read.csv("data/example.csv")
 
-var <- 123
+# Inspect the first rows
+head(data)
+
+# Write to a CSV file
+write.csv(data, "data/output.csv", row.names = FALSE)
 
 ```
 ### Python
 ```{python}
-#| label: excercise-1-py
+#| label: reading-py
 #| code-fold: true
+import pandas as pd
 
-var = 123
+# Read a CSV file
+data = pd.read_csv("data/example.csv")
 
+# Inspect the first rows
+print(data.head())
+
+# Write to a CSV file
+data.to_csv("data/output.csv", index=False)
 ```
 :::
 :::
 
+::: {.callout-note title="Example: Reading Excel files"}
+### Reading Excel files
+::: {.panel-tabset}
+### R
+```{r}
+#| label: reading-R-excel
+#| code-fold: true
+# Requires the 'readxl' package
+library(readxl)
+
+# Read an Excel file (first sheet by default)
+data_xlsx <- read_excel("data/example.xlsx")
+
+head(data_xlsx)
+
+```
+### Python
+```{python}
+#| label: reading-py-excel
+#| code-fold: true
+import pandas as pd
+
+# Read an Excel file (first sheet by default)
+data_xlsx = pd.read_excel("data/example.xlsx")
+
+print(data_xlsx.head())
+```
+:::
+:::
+
+>**Tip:** Always check your working directory with `getwd()` in R or `os.getcwd()` in Python,  
+>and adjust file paths accordingly so your scripts can locate the files without errors.
+
+
+### Basic Plotting
+Visualizing your data early helps detect patterns, trends, and anomalies before doing complex analysis.
+Good visualizations tell a story that can be understood even without statistical training.
+
+Once you have data loaded, visualization becomes a powerful tool to understand its structure and detect patterns at a glance.
+In this section, we will cover simple plots using **base R** and **matplotlib** in Python.
+The goal is to give you a minimal but functional starting point for plotting; we will explore more advanced visualization libraries in later chapters.
+
+::: {.callout-note title="Example: Basic plotting in R & Python"}
+#### Plotting numeric variables
+::: {.panel-tabset}
+
+### R
+```{r}
+# Read the CSV example file
+data <- read.csv("data/example.csv")
+
+# Basic scatter plot: Age vs Salary
+plot(
+  data$Age, data$Salary,
+  main = "Age vs Salary",
+  xlab = "Age",
+  ylab = "Salary",
+  col = "blue",
+  pch = 19
+)
+
+# Basic barplot: Count by Department
+dept_counts <- table(data$Department)
+barplot(dept_counts,
+        main = "Number of Employees by Department",
+        col = "lightblue")
+```
+### Python
+```{python}
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Read the CSV example file
+data = pd.read_csv("data/example.csv")
+
+# Basic scatter plot: Age vs Salary
+plt.scatter(data["Age"], data["Salary"], color="blue")
+plt.title("Age vs Salary")
+plt.xlabel("Age")
+plt.ylabel("Salary")
+plt.show()
+
+# Basic barplot: Count by Department
+dept_counts = data["Department"].value_counts()
+dept_counts.plot(kind="bar", color="lightblue")
+plt.title("Number of Employees by Department")
+plt.ylabel("Count")
+plt.show()
+```
+:::
+:::
+
+>**Tip:** When creating plots, always label your axes and provide a clear title.  
+>Good labeling makes your plots informative without requiring extra explanation.
+
+
+### Basic Descriptive Statistics
+Descriptive statistics provide a numerical summary of your data, highlighting key aspects like central tendency and variability.
+They are the foundation for more advanced inferential methods and help validate assumptions about your dataset.
+
+After loading and visualizing data, the next step is to summarize it numerically.
+Descriptive statistics help you understand the central tendency, spread, and overall distribution of your variables.
+In this section, we will compute common measures such as the **mean**, **median**, **minimum**, **maximum**, and **standard deviation**.
+
+::: {.callout-note title="Example: Descriptive statistics in R & Python"}
+#### Summary statistics
+::: {.panel-tabset}
+
+### R
+```{r}
+# Read the CSV example file
+data <- read.csv("data/example.csv")
+
+# Quick summary of all variables
+summary(data)
+
+# Mean, median, standard deviation of Salary
+mean(data$Salary)
+median(data$Salary)
+sd(data$Salary)
+
+# Minimum and maximum Age
+min(data$Age)
+max(data$Age)
+```
+### Python
+```{python}
+import pandas as pd
+
+# Read the CSV example file
+data = pd.read_csv("data/example.csv")
+
+# Quick summary of all variables
+print(data.describe())
+
+# Mean, median, standard deviation of Salary
+print(data["Salary"].mean())
+print(data["Salary"].median())
+print(data["Salary"].std())
+
+# Minimum and maximum Age
+print(data["Age"].min())
+print(data["Age"].max())
+```
+:::
+:::
+
+>**Tip:** Use quick summary functions like summary() in R or .describe() in Python to get an instant overview of your dataset.
+
+### Mini-Project: From Raw Data to Insight
+
+In this mini-project you will practice a complete workflow:
+1. Load a dataset.
+2. Inspect and clean the data if necessary.
+3. Calculate basic summaries.
+4. Create a simple visualization.
+5. Save the results.
+
+We will use the file `data/example.csv` created earlier in this chapter.
+
+#### Step 1 — Load and inspect the data
+::: {.panel-tabset}
+
+### R
+```{r}
+data <- read.csv("data/example.csv")
+
+# Inspect structure and first rows
+str(data)
+head(data)
+summary(data)
+```
+
+### Python
+```{python}
+import pandas as pd
+
+data = pd.read_csv("data/example.csv")
+
+# Inspect structure and first rows
+print(data.info())
+print(data.head())
+print(data.describe())
+```
+:::
+
+>**Tip:** Inspecting your dataset before any analysis helps identify missing values, incorrect types, and unexpected entries.
+
+#### Step 2 — Summarize by department
+We will calculate the number of employees, mean salary, and mean age for each department.
+
+::: {.panel-tabset}
+
+### R
+```{r}
+summary_tbl <- aggregate(
+  cbind(Salary, Age) ~ Department,
+  data = data,
+  FUN = function(x) c(mean = mean(x), n = length(x))
+)
+
+# Extract and rename columns
+summary_tbl$Mean_Salary <- summary_tbl$Salary[, "mean"]
+summary_tbl$N <- summary_tbl$Salary[, "n"]
+summary_tbl$Mean_Age <- summary_tbl$Age[, "mean"]
+
+summary_tbl <- summary_tbl[, c("Department", "N", "Mean_Salary", "Mean_Age")]
+summary_tbl
+```
+
+### Python
+```{python}
+summary_tbl = (
+    data.groupby("Department")
+        .agg(N=("Name", "count"),
+             Mean_Salary=("Salary", "mean"),
+             Mean_Age=("Age", "mean"))
+        .reset_index()
+)
+print(summary_tbl)
+```
+:::
+
+>**Tip:** Grouping and summarizing helps reveal patterns and differences between categories in your dataset.
+
+#### Step 3 — Plot mean salary by department
+::: {.panel-tabset}
+
+### R
+```{r}
+barplot(
+  summary_tbl$Mean_Salary,
+  names.arg = summary_tbl$Department,
+  main = "Mean Salary by Department",
+  ylab = "Mean Salary",
+  col = "lightblue"
+)
+```
+
+### Python
+```{python}
+import matplotlib.pyplot as plt
+
+plt.bar(summary_tbl["Department"], summary_tbl["Mean_Salary"], color="lightblue")
+plt.title("Mean Salary by Department")
+plt.ylabel("Mean Salary")
+plt.xlabel("Department")
+plt.show()
+```
+:::
+
+>**Tip:** Keep your plots simple and clear. Colors and labels should help the reader understand the data, not distract from it.
+
+#### Step 4 — Save your results
+::: {.panel-tabset}
+
+### R
+```{r}
+write.csv(summary_tbl, "data/summary_by_department.csv", row.names = FALSE)
+```
+
+### Python
+```{python}
+summary_tbl.to_csv("data/summary_by_department.csv", index=False)
+```
+:::
+
+>**Tip:** Saving intermediate results is useful when your analysis involves multiple steps or when you want to share summaries without the raw data.
+
+
+## Exploring Quantitative Variables
+
+Quantitative variables are numerical in nature and can be **discrete** (taking specific separated values) or **continuous** (capable of taking any value within a range).  
+Understanding their distribution is essential for summarizing and comparing data.
+
+### Grouping data into classes
+When dealing with continuous variables, we often create **classes** or **intervals** to summarize the data.  
+This involves deciding:
+
+- The **number of classes** $k$
+- The **width of each interval**
+- Ensuring classes are **mutually exclusive** (no overlap) and **exhaustive** (cover all data points)
+
+A widely used guideline is **Sturges’ rule**:
+
+$$
+k \approx 1 + 3.3 \cdot \log_{10}(n)
+$$
+
+Where $n$ is the number of observations.
+
+The class width can be calculated as:
+
+$$
+\text{width} = \frac{\text{max} - \text{min}}{k}
+$$
+
+#### Example: Creating classes
+
+Let’s use the `Salary` column from `data/example.csv` and group it into classes.
+
+::: {.panel-tabset}
+### R
+```{r}
+data <- read.csv("data/example.csv")
+
+n <- nrow(data)
+k <- ceiling(1 + 3.3 * log10(n)) # Sturges' rule
+width <- ceiling((max(data$Salary) - min(data$Salary)) / k)
+
+# Create intervals and frequency table
+breaks <- seq(min(data$Salary), max(data$Salary) + width, by = width)
+freq_table <- table(cut(data$Salary, breaks = breaks, right = FALSE))
+freq_table
+```
+### Python
+```{python}
+import pandas as pd
+import numpy as np
+import math
+
+data = pd.read_csv("data/example.csv")
+
+n = len(data)
+k = math.ceil(1 + 3.3 * math.log10(n)) # Sturges' rule
+width = math.ceil((data["Salary"].max() - data["Salary"].min()) / k)
+
+# Create intervals and frequency table
+bins = np.arange(data["Salary"].min(), data["Salary"].max() + width, width)
+freq_table = pd.cut(data["Salary"], bins=bins, right=False).value_counts().sort_index()
+print(freq_table)
+```
+:::
+
+>**Tip:** Rounding up the class width ensures all observations fit neatly into the intervals.
+
+### Cumulative frequencies
+The **cumulative absolute frequency** $N_j$ is the number of observations up to and including the $j$-th class.  
+The **cumulative relative frequency** $F_j$ is $\frac{N_j}{n}$.
+
+::: {.panel-tabset}
+### R
+```{r}
+cum_abs <- cumsum(freq_table)
+cum_rel <- cum_abs / n
+data.frame(Class = names(freq_table),
+           Freq = as.vector(freq_table),
+           CumAbs = cum_abs,
+           CumRel = cum_rel)
+```
+
+### Python
+```{python}
+cum_abs = freq_table.cumsum()
+cum_rel = cum_abs / n
+freq_df = pd.DataFrame({
+    "Class": freq_table.index.astype(str),
+    "Freq": freq_table.values,
+    "CumAbs": cum_abs.values,
+    "CumRel": cum_rel.values
+})
+print(freq_df)
+```
+:::
+
+>**Tip:** Cumulative frequencies are useful for identifying percentiles and medians directly from grouped data.
+
+### Visualizing continuous data
+
+**Histogram**: Displays the distribution of a quantitative variable by showing frequencies for each class.
+
+**Frequency polygon**: Connects the midpoints of histogram bars with straight lines.
+
+**Ogive**: Plots the cumulative frequencies, useful for identifying medians and percentiles.
+
+::: {.panel-tabset}
+### R
+```{r}
+# Histogram
+hist(data$Salary,
+     breaks = breaks,
+     right = FALSE,
+     col = "lightblue",
+     main = "Salary Distribution",
+     xlab = "Salary")
+
+# Frequency polygon
+mids <- (breaks[-1] + breaks[-length(breaks)]) / 2
+plot(mids, as.vector(freq_table), type = "o", col = "blue",
+     main = "Frequency Polygon", xlab = "Salary", ylab = "Frequency")
+
+# Ogive
+plot(mids, cum_abs, type = "o", col = "red",
+     main = "Ogive", xlab = "Salary", ylab = "Cumulative Frequency")
+```
+### Python
+```{python}
+import matplotlib.pyplot as plt
+
+# Histogram
+plt.hist(data["Salary"], bins=bins, edgecolor="black", color="lightblue")
+plt.title("Salary Distribution")
+plt.xlabel("Salary")
+plt.ylabel("Frequency")
+plt.show()
+
+# Frequency polygon
+mids = (bins[:-1] + bins[1:]) / 2
+plt.plot(mids, freq_table.values, marker="o", color="blue")
+plt.title("Frequency Polygon")
+plt.xlabel("Salary")
+plt.ylabel("Frequency")
+plt.show()
+
+# Ogive
+plt.plot(mids, cum_abs.values, marker="o", color="red")
+plt.title("Ogive")
+plt.xlabel("Salary")
+plt.ylabel("Cumulative Frequency")
+plt.show()
+```
+:::
+
+>**Tip:** Use consistent class boundaries for all plots to ensure visual comparability.
+
+### Practice
+
+1. Group the `Age` variable into classes using Sturges’ rule and create the frequency table.  
+2. Draw the histogram, frequency polygon, and ogive for `Age`.  
+3. Identify the median salary from the ogive.
