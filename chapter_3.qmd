@@ -883,18 +883,1952 @@ $$
 $$
 is well defined.
 
-**Example 1.16 (por numerar)**
-Let $X$ and $Y$ be two random variables with joint density function given by:
+**Example 1.16.**
+Let $X$ and $Y$ be random variables with joint density
 $$
-f(x,y) = \begin{cases}
-\frac{1}{y}e^{\frac{-x}{y}e^{-y}} & if & x>0,y>0\\
-0 & otherwise
+f(x,y)=
+\begin{cases}
+\dfrac{1}{y}\,e^{-x/y}\,e^{-y}, & x>0,\; y>0,\\[4pt]
+0, & \text{otherwise.}
 \end{cases}
 $$
-Find:
-(a) P[X<2Y]
-(b) P[Y>2X]
-**solution**
+Find (a) $P[X<2Y]$ and (b) $P[Y<2X]$.
+
+**Solution**
+
+a) 
+$$
+\begin{aligned}
+P[X<2Y]
+&=\int_{0}^{\infty}\!\!\int_{0}^{2y} \frac{1}{y}e^{-x/y}e^{-y}\,dx\,dy \\
+&=\int_{0}^{\infty} e^{-y}\!\left[\,-e^{-x/y}\,\right]_{x=0}^{x=2y}\,dy
+=\int_{0}^{\infty} e^{-y}\!\left(1-e^{-2}\right)\,dy \\
+&=(1-e^{-2})\int_{0}^{\infty} e^{-y}\,dy
+=1-e^{-2}.
+\end{aligned}
+$$
+
+b)
+$$
+\begin{aligned}
+P[Y<2X]
+&=\int_{0}^{\infty}\!\!\int_{y/2}^{\infty} \frac{1}{y}e^{-x/y}e^{-y}\,dx\,dy \\
+&=\int_{0}^{\infty} e^{-y}\!\left[\;e^{-x/y}\;\right]_{x=y/2}^{x=\infty}\,dy
+=\int_{0}^{\infty} e^{-y}\,e^{-1/2}\,dy
+=e^{-1/2}.
+\end{aligned}
+$$
+
+In Example 1.1 the joint distribution of $X$ and $Y$ is absolutely continuous; in fact,
+$$
+f_{X,Y}(x,y)=
+\begin{cases}
+1, & 0<x<1,\;0<y<1,\\
+0, & \text{otherwise.}
+\end{cases}
+$$
+By contrast, in Example 1.2 the joint distribution of $X$ and $Y$ is **not** absolutely continuous. If a joint density $f_{X,Y}$ existed, then
+$$
+1=P[(X,Y)\in D]=\iint_{D} f_{X,Y}(x,y)\,dx\,dy=0,
+$$
+
+because the diagonal $D$ has zero area—a contradiction. Note that here $F_{X,Y}$ is continuous and, separately, both $X$ and $Y$ are absolutely continuous. In general, if $(X,Y)$ takes values only in a set $A\subset\mathbb{R}^2$ with zero area, then $F_{X,Y}$ is not absolutely continuous.
+
+**Uniform selection on a region.**  
+If a point is chosen uniformly at random in a subset $R\subset\mathbb{R}^2$, define $X$ and $Y$ as the abscissa and ordinate, respectively, of the selected point. If the area of $R$ is well-defined and nonzero, then
+$$
+f(x,y)=
+\begin{cases}
+\dfrac{1}{\operatorname{Area}(R)}, & (x,y)\in R,\\
+0, & \text{otherwise},
+\end{cases}
+$$
+
+is a joint density of $(X,Y)$. Indeed, for any set $A\subset\mathbb{R}^2$ for which $\iint_A f(x,y)\,dx\,dy$ is well-defined,
+$$
+P[(X,Y)\in A]=\frac{\operatorname{Area}(A\cap R)}{\operatorname{Area}(R)}=\iint_A f(x,y)\,dx\,dy.
+$$
+
+More generally, for $R\subset\mathbb{R}^n$ with positive finite $n$-dimensional volume,
+$$
+f(x_1,\ldots,x_n)=
+\begin{cases}
+\dfrac{1}{\operatorname{Vol}(R)}, & (x_1,\ldots,x_n)\in R,\\
+0, & \text{otherwise}.
+\end{cases}
+$$
+
+In particular, if $(X_1,\ldots,X_n)$ is absolutely continuous with joint cdf $F_{X_1,\ldots,X_n}$ that is continuously differentiable on a set $S\subset\mathbb{R}^n$ with $P[(X_1,\ldots,X_n)\in S]=1$, then its joint density is
+$$
+f_{X_1,\ldots,X_n}(x_1,\ldots,x_n)=
+\begin{cases}
+\dfrac{\partial^n}{\partial x_1\cdots \partial x_n}F_{X_1,\ldots,X_n}(x_1,\ldots,x_n), & (x_1,\ldots,x_n)\in S,\\[6pt]
+0, & \text{otherwise.}
+\end{cases}
+$$
+
+**Proposition 1.18.(por numerar)** Let $(X_1,\ldots,X_n)$ be a random vector with joint distribution function $F_{X_1,\ldots,X_n}$ and let $S\subset\mathbb{R}^n$ be an open set such that
+$$
+P\big[(X_1,\ldots,X_n)\in S\big]=1.
+$$
+
+Suppose that:
+(i) $F_{X_1,\ldots,X_n}$ is continuous on $\mathbb{R}^n$;  
+(ii) the mixed partial derivative
+$$
+\frac{\partial^n}{\partial x_1\cdots \partial x_n}F_{X_1,\ldots,X_n}(x_1,\ldots,x_n)
+$$
+exists and is continuous on $S$.
+
+Then $(X_1,\ldots,X_n)$ is absolutely continuous, and its joint density is
+$$
+f_{X_1,\ldots,X_n}(x_1,\ldots,x_n)=
+\begin{cases}
+\dfrac{\partial^n}{\partial x_1\cdots \partial x_n}F_{X_1,\ldots,X_n}(x_1,\ldots,x_n), & (x_1,\ldots,x_n)\in S,\\[6pt]
+0, & \text{otherwise.}
+\end{cases}
+$$
+
+**Example 1.19.** Consider the joint cdf from Example 1.1:
+$$
+F_{X,Y}(x,y)=
+\begin{cases}
+0, & x\le 0 \text{ or } y\le 0,\\
+xy, & 0<x<1,\;0<y<1,\\
+x, & 0<x<1,\; y\ge 1,\\
+y, & 0<y<1,\; x\ge 1,\\
+1, & x\ge 1,\; y\ge 1.
+\end{cases}
+$$
+
+Clearly $F_{X,Y}$ is continuous on $\mathbb{R}^2$. If $S=(0,1)\times(0,1)$, then $P[(X,Y)\in S]=1$ and $\partial^2 F_{X,Y}/(\partial x\,\partial y)$ exists and is continuous on $S$. Therefore $(X,Y)$ is absolutely continuous and its joint density is
+$$
+f_{X,Y}(x,y)=
+\begin{cases}
+1, & (x,y)\in S,\\
+0, & \text{otherwise.}
+\end{cases}
+$$
+
+---
+
+### Marginal density functions
+
+Let $(X_1,\ldots,X_n)$ be a discrete random vector with joint pmf $f_{X_1,\ldots,X_n}$. By countable additivity,
+$$
+\begin{aligned}
+&f_{X_1,\ldots,X_{j-1},X_{j+1},\ldots,X_n}(x_1,\ldots,x_{j-1},x_{j+1},\ldots,x_n)\\
+&\qquad=\sum_{x} f_{X_1,\ldots,X_n}(x_1,\ldots,x_{j-1},x,x_{j+1},\ldots,x_n).
+\end{aligned}
+$$
+
+Applying this repeatedly yields the analogous formula for the joint pmf of any subfamily of $\{X_1,\ldots,X_n\}$. In particular,
+$$
+f_{X_j}(x_j)=\sum_{x_1,\ldots,x_{j-1},x_{j+1},\ldots,x_n}
+f_{X_1,\ldots,X_n}(x_1,\ldots,x_{j-1},x_j,x_{j+1},\ldots,x_n).
+$$
+
+For the case of two random variables, $X,Y$, this result reads
+$$
+f_X(x)=\sum_{y} f_{X,Y}(x,y),
+\qquad
+f_Y(y)=\sum_{x} f_{X,Y}(x,y).
+$$
+
+**Example 1.22.** Let $(X,Y)$ be a discrete random vector with joint probability mass function
+$$
+f_{X,Y}(x,y)=
+\begin{cases}
+\dfrac{2x}{N^2(N+1)}, & x,y\in\{1,\ldots,N\},\\[6pt]
+0, & \text{otherwise,}
+\end{cases}
+$$
+where $N$ is a positive integer. Find the marginal pmfs $f_X$ and $f_Y$.
+
+**Solution**
+
+For $x\in\{1,\ldots,N\}$,
+$$
+\begin{aligned}
+f_X(x)
+&=\sum_{y=1}^{N} f_{X,Y}(x,y)
+=\sum_{y=1}^{N} \frac{2x}{N^2(N+1)}
+=\frac{2x}{N(N+1)}.
+\end{aligned}
+$$
+
+For $y\in\{1,\ldots,N\}$,
+$$
+\begin{aligned}
+f_Y(y)
+&=\sum_{x=1}^{N} f_{X,Y}(x,y)
+=\sum_{x=1}^{N} \frac{2x}{N^2(N+1)}
+=\frac{1}{N}.
+\end{aligned}
+$$
+
+In the absolutely continuous case, we have:
+$$
+\begin{aligned}
+&F_{X_1,\ldots,X_{j-1},X_{j+1},\ldots,X_n}(x_1,\ldots,x_{j-1},x_{j+1},\ldots,x_n)\\
+&\qquad=\lim_{x\to\infty} F_{X_1,\ldots,X_n}(x_1,\ldots,x_{j-1},x,x_{j+1},\ldots,x_n)\\
+&\qquad=\lim_{x\to\infty}\int_{-\infty}^{x_1}\!\!\cdots\!\!\int_{-\infty}^{x_{j-1}}\!
+\int_{-\infty}^{x}\!\int_{-\infty}^{x_{j+1}}\!\!\cdots\!\!\int_{-\infty}^{x_n}
+f_{X_1,\ldots,X_n}(y_1,\ldots,y_{j-1},y,y_{j+1},\ldots,y_n)\,dy_n\cdots dy_{j+1}\,dy\,dy_{j-1}\cdots dy_1\\
+&\qquad=\int_{-\infty}^{x_1}\!\!\cdots\!\!\int_{-\infty}^{x_{j-1}}\!
+\int_{-\infty}^{\infty}\!\int_{-\infty}^{x_{j+1}}\!\!\cdots\!\!\int_{-\infty}^{x_n}
+f_{X_1,\ldots,X_n}(y_1,\ldots,y_{j-1},y,y_{j+1},\ldots,y_n)\,dy_n\cdots dy_{j+1}\,dy\,dy_{j-1}\cdots dy_1.
+\end{aligned}
+$$
+
+Therefore:
+$$
+f_{X_1,\ldots,X_{j-1},X_{j+1},\ldots,X_n}(x_1,\ldots,x_{j-1},x_{j+1},\ldots,x_n)
+=\int_{-\infty}^{\infty} f_{X_1,\ldots,X_n}(x_1,\ldots,x_{j-1},y,x_{j+1},\ldots,x_n)\,dy.
+$$
+
+For $1 \le i < j \le n$, applying the previous formula twice, we obtain:
+$$
+\begin{aligned}
+&f_{X_1,\ldots,X_{i-1},\,X_{i+1},\ldots,X_{j-1},\,X_{j+1},\ldots,X_n}
+(x_1,\ldots,x_{i-1},x_{i+1},\ldots,x_{j-1},x_{j+1},\ldots,x_n)\\
+&\qquad=\int_{-\infty}^{\infty}\!\!\int_{-\infty}^{\infty}
+f_{X_1,\ldots,X_n}(x_1,\ldots,x_{i-1},x,\,x_{i+1},\ldots,x_{j-1},y,\,x_{j+1},\ldots,x_n)\,dx\,dy.
+\end{aligned}
+$$
+
+Applying the first formula repeatedly yields an analogous expression for the joint density of **any** subfamily of the random variables $X_1,\ldots,X_n$. In particular,
+$$
+f_{X_j}(x_j)=
+\int_{-\infty}^{\infty}\!\cdots\!\int_{-\infty}^{\infty}
+f_{X_1,\ldots,X_n}(x_1,\ldots,x_{j-1},x_j,x_{j+1},\ldots,x_n)\,
+dx_1\cdots dx_{j-1}\,dx_{j+1}\cdots dx_n.
+$$
+
+For the case of two random variables $X,Y$, we have:
+$$
+f_X(x)=\int_{-\infty}^{\infty} f_{X,Y}(x,y)\,dy,
+\qquad
+f_Y(y)=\int_{-\infty}^{\infty} f_{X,Y}(x,y)\,dx.
+$$
+
+For the case of three random variables $X,Y,Z$, we have:
+$$
+\begin{aligned}
+f_X(x)&=\int_{-\infty}^{\infty}\!\!\int_{-\infty}^{\infty} f_{X,Y,Z}(x,y,z)\,dy\,dz,\\
+f_Y(y)&=\int_{-\infty}^{\infty}\!\!\int_{-\infty}^{\infty} f_{X,Y,Z}(x,y,z)\,dx\,dz,\\
+f_Z(z)&=\int_{-\infty}^{\infty}\!\!\int_{-\infty}^{\infty} f_{X,Y,Z}(x,y,z)\,dx\,dy.
+\end{aligned}
+$$
+
+Moreover, the bivariate marginals of $(X,Y,Z)$ satisfy:
+$$
+\begin{aligned}
+f_{Y,Z}(y,z)&=\int_{-\infty}^{\infty} f_{X,Y,Z}(x,y,z)\,dx,\\
+f_{X,Z}(x,z)&=\int_{-\infty}^{\infty} f_{X,Y,Z}(x,y,z)\,dy,\\
+f_{X,Y}(x,y)&=\int_{-\infty}^{\infty} f_{X,Y,Z}(x,y,z)\,dz.
+\end{aligned}
+$$
+
+### Joint distributions of independent random variables
+
+Recall (see Chapter 2) that we say that the random variables $X_1,\ldots,X_n$ are independent if, for any collection of Borel subsets of the real line $A_1,\ldots,A_n$, the events $[X_1\in A_1],\ldots,[X_n\in A_n]$ are independent.
+
+In addition, we have the following results.
+
+**Proposition 1.25.(pendiente por numerar)** Let $X_1,\ldots,X_n$ be independent random variables and let $f_1,\ldots,f_n:\mathbb{R}\to\mathbb{R}$ be Borel functions. Then the random variables $f_1(X_1),\ldots,f_n(X_n)$ are independent.
+
+**Proposition 1.26.(pendiente por numerar)** Let $X_1,\ldots,X_{n+m}$ be independent random variables and let $f:\mathbb{R}^n\to\mathbb{R}$ and $g:\mathbb{R}^m\to\mathbb{R}$ be arbitrary Borel functions. Then the random variables $f(X_1,\ldots,X_n)$ and $g(X_{n+1},\ldots,X_{n+m})$ are independent.
+
+Given two independent random variables $X$ and $Y$, for any vector $(x,y)\in\mathbb{R}^2$,
+$$
+F_{X,Y}(x,y)=P[X\le x,\;Y\le y]=P[X\le x]\,P[Y\le y]=F_X(x)\,F_Y(y).
+$$
+
+If, in addition, both $X$ and $Y$ are absolutely continuous with densities $f_X$ and $f_Y$, respectively, then
+$$
+F_{X,Y}(x,y)=F_X(x)\,F_Y(y)
+=\Bigg(\int_{-\infty}^{x} f_X(u)\,du\Bigg)
+\Bigg(\int_{-\infty}^{y} f_Y(v)\,dv\Bigg)
+=\int_{-\infty}^{x}\int_{-\infty}^{y} f_X(u)\,f_Y(v)\,dv\,du.
+$$
+Therefore the vector $(X,Y)$ is absolutely continuous and
+$$
+f_{X,Y}(x,y)=f_X(x)\,f_Y(y).
+$$
+
+Similarly, if both $X$ and $Y$ are discrete with probability mass functions $f_X$ and $f_Y$, respectively, then
+$$
+f_{X,Y}(x,y)=P[X=x,\;Y=y]=P[X=x]\,P[Y=y]=f_X(x)\,f_Y(y).
+$$
+
+We now prove the converses of these results.
+
+**Proposition 1.27.(pendiente por numerar)** The random variables $X_1,\ldots,X_n$ are independent if and only if their joint distribution function equals the product of their marginal distribution functions.
+
+**Proposition 1.28.(pendiente por numerar)** Suppose the random vector $(X_1,\ldots,X_n)$ is either discrete or absolutely continuous. Then the component random variables are independent if and only if the joint density (pmf) equals the product of the marginal densities (pmfs).
+
+**Proof.** We give the proof only for the case of two random variables; the $n$-dimensional case is analogous. Let $(X,Y)$ be a discrete or absolutely continuous random vector and assume
+$$
+f_{X,Y}(x,y)=f_X(x)\,f_Y(y)\quad\text{for all }(x,y)\in\mathbb{R}^2.
+$$
+
+In the discrete case,
+$$
+\begin{aligned}
+F_{X,Y}(x,y)
+&=\sum_{\{(u,v)\in\mathbb{R}^2:\;u\le x,\;v\le y\}} f_{X,Y}(u,v)
+=\sum_{\{(u,v):\,u\le x,\,v\le y\}} f_X(u)\,f_Y(v)\\
+&=\sum_{\{u:\,u\le x\}} f_X(u)\;\sum_{\{v:\,v\le y\}} f_Y(v)
+=F_X(x)\,F_Y(y).
+\end{aligned}
+$$
+
+In the absolutely continuous case,
+$$
+\begin{aligned}
+F_{X,Y}(x,y)
+&=\int_{-\infty}^{x}\int_{-\infty}^{y} f_{X,Y}(u,v)\,dv\,du
+=\int_{-\infty}^{x}\int_{-\infty}^{y} f_X(u)\,f_Y(v)\,dv\,du \\
+&=\Bigg(\int_{-\infty}^{x} f_X(u)\,du\Bigg)
+\Bigg(\int_{-\infty}^{y} f_Y(v)\,dv\Bigg)
+=F_X(x)\,F_Y(y).
+\end{aligned}
+$$
+
+Thus, in either case, the joint distribution function of $X$ and $Y$ equals the product of the marginal distribution functions. Therefore, by Proposition 1.27, $X$ and $Y$ are independent. $\square$
+
+As an illustration, one can immediately verify that the random variables in Example 1.1 are independent, whereas those in Example 1.2 are not.
+
+**Example 1.30.** Let $(X,Y)$ be a discrete random vector with joint pmf
+$$
+f_{X,Y}(x,y)=
+\begin{cases}
+\dfrac{4}{N^2(N+1)^2}\,x\,y, & x,y\in\{1,\ldots,N\},\\[6pt]
+0, & \text{otherwise.}
+\end{cases}
+$$
+Are $X$ and $Y$ independent?
+
+**Solution**
+
+For $x\in\{1,\ldots,N\}$,
+$$
+f_X(x)=\sum_{y=1}^{N} f_{X,Y}(x,y)
+=\frac{4}{N^2(N+1)^2}\,x\sum_{y=1}^{N} y
+=\frac{4}{N^2(N+1)^2}\,x\cdot\frac{N(N+1)}{2}
+=\frac{2x}{N(N+1)}.
+$$
+Similarly, for $y\in\{1,\ldots,N\}$,
+$$
+f_Y(y)=\sum_{x=1}^{N} f_{X,Y}(x,y)
+=\frac{2y}{N(N+1)}.
+$$
+Hence $f_{X,Y}(x,y)=f_X(x)\,f_Y(y)$, and $X$ and $Y$ are independent.
+
+In the case of two independent random variables $X,Y$, discrete or absolutely continuous, computing a probability of the form $P[(X,Y)\in A]$ for a set $A\subset\mathbb{R}^2$ is simplified thanks to Proposition 1.28 and to the fact that probabilities of the form $P[X\in B,\;Y\in C]$ factor as $P[X\in B]\,P[Y\in C]$.
+
+**Example 1.35.** Let $X$ and $Y$ be independent exponential random variables, with $X\sim\mathrm{Exp}(\lambda_1)$ and $Y\sim\mathrm{Exp}(\lambda_2)$. Find $P[X<Y]$.
+
+**Solution**
+$$
+\begin{aligned}
+P[X<Y]
+&=\int_{0}^{\infty}\int_{x}^{\infty} \lambda_1 e^{-\lambda_1 x}\,\lambda_2 e^{-\lambda_2 y}\,dy\,dx \\
+&=\int_{0}^{\infty} \lambda_1 e^{-\lambda_1 x}\left[\,-e^{-\lambda_2 y}\,\right]_{y=x}^{\infty} dx
+=\int_{0}^{\infty} \lambda_1 e^{-(\lambda_1+\lambda_2)x}\,dx \\
+&=\frac{\lambda_1}{\lambda_1+\lambda_2}.
+\end{aligned}
+$$
+
+
+## Distributions of functions of discrete random vectors
+
+In this section we use relations (density joint functions) and (marginal dist) from the previous chapter to find the probability mass function of a function of a discrete random vector.
+
+**Example 2.1.** Let $(X,Y)$ be a discrete random vector with joint pmf
+$$
+f_{X,Y}(x,y)=
+\begin{cases}
+\dfrac{2x}{N^{2}(N+1)}, & x,y\in\{1,\ldots,N\},\\[6pt]
+0, & \text{otherwise,}
+\end{cases}
+$$
+
+where $$N$$ is a positive integer. Find the pmf of $$U=X+Y$$.
+
+**Solution**
+
+$$
+\begin{aligned}
+f_U(u)
+&=P[X+Y=u]
+=\sum_{x=1}^{N} P[X+Y=u,\,X=x] \\
+&=\sum_{x=1}^{N} P[X=x,\,Y=u-x]
+=\begin{cases}
+\displaystyle \sum_{x=1}^{u-1} \dfrac{2x}{N^{2}(N+1)}, & u\in\{2,\ldots,N+1\},\\[12pt]
+\displaystyle \sum_{x=u-N}^{N} \dfrac{2x}{N^{2}(N+1)}, & u\in\{N+2,\ldots,2N\},\\[10pt]
+0, & \text{otherwise.}
+\end{cases}
+\end{aligned}
+$$
+
+Evaluating,
+$$
+f_U(u)=
+\begin{cases}
+\dfrac{u(u-1)}{N^{2}(N+1)}, & u=2,\ldots,N+1,\\[6pt]
+\dfrac{u(2N-u+1)}{N^{2}(N+1)}, & u=N+2,\ldots,2N,\\[6pt]
+0, & \text{otherwise.}
+\end{cases}
+$$
+
+---
+
+## Distributions of functions of absolutely continuous random vectors
+
+We now find the density of a function of an absolutely continuous random vector, using relation 1.4.
+
+**Example 2.5.** Let $$(X,Y)$$ be absolutely continuous with joint density $$f_{X,Y}$$. Derive formulas for the densities of $$U=X+Y$$ and $$V=Y-X$$.
+
+**Solution (sum).**
+$$
+\begin{aligned}
+F_U(u)
+&=P[X+Y\le u]
+=\iint_{\{(x,y):\,x+y\le u\}} f_{X,Y}(x,y)\,dy\,dx \\
+&=\int_{-\infty}^{\infty}\left(\int_{-\infty}^{\,u-x} f_{X,Y}(x,y)\,dy\right)dx
+=\int_{-\infty}^{u}\left(\int_{-\infty}^{\infty} f_{X,Y}(x,z-x)\,dx\right)dz,
+\end{aligned}
+$$
+hence
+$$
+f_U(u)=\int_{-\infty}^{\infty} f_{X,Y}(x,\,u-x)\,dx.
+$$
+
+**Solution (difference).**
+$$
+\begin{aligned}
+F_V(v)
+&=P[Y-X\le v]
+=\iint_{\{(x,y):\,y-x\le v\}} f_{X,Y}(x,y)\,dy\,dx \\
+&=\int_{-\infty}^{\infty}\left(\int_{-\infty}^{\,v+x} f_{X,Y}(x,y)\,dy\right)dx
+=\int_{-\infty}^{v}\left(\int_{-\infty}^{\infty} f_{X,Y}(x,z+x)\,dx\right)dz,
+\end{aligned}
+$$
+so
+$$
+f_V(v)=\int_{-\infty}^{\infty} f_{X,Y}(x,\,v+x)\,dx.
+$$
+
+---
+
+## Joint distributions of functions of random vectors
+
+Relation 1.4 also yields the **joint** density of variables that are functions of an absolutely continuous vector.
+
+**Example 2.21.** Let $(X,Y)$ be absolutely continuous with joint density $f_{X,Y}$. Obtain a formula for the joint density of $(U,V)=(X+Y,\,Y-X)$.
+
+**Solution**
+$$
+P[U\le u_0,\;V\le v_0]
+=P[X+Y\le u_0,\;Y-X\le v_0]
+=\iint_{\{(x,y):\,x+y\le u_0,\;y-x\le v_0\}} f_{X,Y}(x,y)\,dx\,dy.
+$$
+
+With the change of variables $u=x+y,\; v=y-x$ so 
+$$
+x=\tfrac{u-v}{2},\;y=\tfrac{u+v}{2}
+$$
+
+Then
+$$
+P\!\big[U \le u_0,\; V \le v_0\big]
+=\int_{-\infty}^{u_0}\!\!\int_{-\infty}^{v_0}
+\frac{1}{2}\; f_{X,Y}\!\left(\frac{u-v}{2},\,\frac{u+v}{2}\right)\, dv\, du
+$$
+
+Therefore
+$$
+f_{X+Y,\,Y-X}(u,v)
+=\frac{1}{2}\; f_{X,Y}\!\left(\frac{u-v}{2},\,\frac{u+v}{2}\right).
+$$
+
+the Jacobian determinant is $\tfrac{1}{2}$. Differentiating yields the standard change-of-variables formula.
+
+**Proposition 2.23 (por numerar)**  
+Let $X=(X_1,\ldots,X_n)$ be absolutely continuous with joint density $f_X$, and let $\phi:\mathbb{R}^n\to\mathbb{R}^n$ be one-to-one and continuously differentiable with inverse $\varphi=\phi^{-1}$ whose Jacobian determinant $J_\varphi$ exists and is continuous. Then $Y=\phi(X)$ is absolutely continuous with density
+$$
+f_Y(y)=\bigl|J_\varphi(y)\bigr|\; f_X\!\bigl(\varphi(y)\bigr),\qquad y\in\mathbb{R}^n.
+$$
+
+**Example 2.27.** Let $X$ and $Y$ be independent $\mathrm{Unif}(0,1)$. Find the joint density of $(U,V)=(X,XY)$, sketch the support, and compute $P\!\bigl(U>\tfrac12,\;V>\tfrac14\bigr)$.
+
+**Solution.** The transform is $u=x,\;v=xy$, with inverse $x=u,\;y=v/u$ and
+$$
+\left|\frac{\partial(x,y)}{\partial(u,v)}\right|
+=\left|\det\begin{pmatrix}1&0\\ -v/u^{2} & 1/u\end{pmatrix}\right|
+=\frac{1}{u}.
+$$
+The constraints $$0<x<1,\;0<y<1$$ become $$0<u<1,\;0<v<u$$, so
+$$
+f_{U,V}(u,v)=
+\begin{cases}
+\dfrac{1}{u}, & 0<v<u<1,\\[6pt]
+0, & \text{otherwise.}
+\end{cases}
+$$
+Finally,
+$$
+\begin{aligned}
+P\!\left(U>\tfrac12,\;V>\tfrac14\right)
+&=\int_{u=1/2}^{1}\int_{v=1/4}^{\,u} \frac{1}{u}\,dv\,du
+=\int_{1/2}^{1}\left(1-\frac{1}{4u}\right)\,du \\
+&=\left[u-\frac{1}{4}\ln u\right]_{1/2}^{1}
+=\tfrac12+\tfrac14\ln 2.
+\end{aligned}
+$$
+
+---
+
+## Order statistics
+
+**Definition 2.33 (Order statistics).** Let $X_1,\ldots,X_n$ be random variables. The variables $X_{(1)}<\cdots<X_{(n)}$, obtained by sorting $X_1,\ldots,X_n$ increasingly, are the **order statistics**.
+
+**Proposition 2.34.** If $X_1,\ldots,X_n$ are independent, absolutely continuous with common density $f$, then
+$$
+f_{X_{(1)},\ldots,X_{(n)}}(u_1,\ldots,u_n)=
+\begin{cases}
+n!\; f(u_1)\cdots f(u_n), & u_1<\cdots<u_n,\\
+0, & \text{otherwise.}
+\end{cases}
+$$
+**Proof.** 
+Let $(u_1,\ldots,u_n)\in\mathbb{R}^n$. Then
+$$
+F_{X_{(1)},\ldots,X_{(n)}}(u_1,\ldots,u_n)
+= P\big(X_{(1)} \le u_1,\ldots, X_{(n)} \le u_n\big).
+$$
+
+Using that $X_1,\ldots,X_n$ are i.i.d. (with density $f$) and partitioning over the $n!$ strict orderings,
+$$
+\begin{aligned}
+&= \sum_{\pi\in S_n} 
+P\Big(X_{\pi(1)}\le u_1,\ldots,X_{\pi(n)}\le u_n,\ X_{\pi(1)}<\cdots<X_{\pi(n)}\Big)\\
+&= \sum_{\pi\in S_n}
+\int_{\{(x_1,\ldots,x_n):\ x_{\pi(1)}<\cdots<x_{\pi(n)},\ x_i\le u_i\ \forall i\}}
+f(x_1)\cdots f(x_n)\,dx_1\cdots dx_n\\
+&= n!\int_{\{(x_1,\ldots,x_n):\ x_1<\cdots<x_n,\ x_i\le u_i\ \forall i\}}
+f(x_1)\cdots f(x_n)\,dx_1\cdots dx_n.
+\end{aligned}
+$$
+
+Differentiating with respect to $(u_1,\ldots,u_n)$ at points where $u_1<\cdots<u_n$ gives
+$$
+f_{X_{(1)},\ldots,X_{(n)}}(u_1,\ldots,u_n)=n!\,f(u_1)\cdots f(u_n).
+$$
+
+Therefore,
+
+$$
+f_{X_{(1)},\ldots,X_{(n)}}(u_1,\ldots,u_n)=
+\begin{cases}
+n!\,f(u_1)\cdots f(u_n), & \text{if } u_1<\cdots<u_n,\\[6pt]
+0, & \text{otherwise.}
+\end{cases}
+$$
+
+**Example 2.35.** Let $T_1,T_2,T_3$ be independent $\mathrm{Exp}(\lambda)$ random variables. Find the probability that **no pair** differs by less than $t>0$.
+
+**Solution.** Let $T_{(1)}<T_{(2)}<T_{(3)}$ be the order statistics. The event
+$\{|T_2-T_1|\ge t,\ |T_3-T_1|\ge t,\ |T_3-T_2|\ge t\}$
+is equivalent to
+$$
+T_{(2)}\ \ge\ T_{(1)}+t,\qquad
+T_{(3)}\ \ge\ T_{(2)}+t .
+$$
+Since the joint density of $(T_{(1)},T_{(2)},T_{(3)})$ is
+$$
+f_{T_{(1)},T_{(2)},T_{(3)}}(t_1,t_2,t_3)=
+\begin{cases}
+3!\,\lambda^{3}\,e^{-\lambda(t_1+t_2+t_3)}, & 0<t_1<t_2<t_3,\\[4pt]
+0, & \text{otherwise,}
+\end{cases}
+$$
+we obtain
+$$
+\begin{aligned}
+P(\text{no pair within }t)
+&=P\!\big(T_{(2)}\ge T_{(1)}+t,\ T_{(3)}\ge T_{(2)}+t\big)\\
+&=\int_{0}^{\infty}\!\int_{t_1+t}^{\infty}\!\int_{t_2+t}^{\infty}
+3!\,\lambda^{3}\,e^{-\lambda(t_1+t_2+t_3)}\,dt_3\,dt_2\,dt_1\\
+&=6\int_{0}^{\infty}\!\int_{t_1+t}^{\infty}\!\left[\lambda^{3}e^{-\lambda(t_1+t_2)}
+\int_{t_2+t}^{\infty}e^{-\lambda t_3}\,dt_3\right] dt_2\,dt_1\\
+&=6\int_{0}^{\infty}\!\int_{t_1+t}^{\infty}\lambda^{2}\,e^{-\lambda(t_1+2t_2+t)}\,dt_2\,dt_1\\
+&=6\int_{0}^{\infty}\frac{\lambda}{2}\,e^{-3\lambda(t_1+t)}\,dt_1
+=6\cdot\frac{1}{6}\,e^{-3\lambda t}
+=\boxed{e^{-3\lambda t}}.
+\end{aligned}
+$$
+
+
+**Corollary 2.38.** If $X_1,\ldots,X_n$ are independent with common density $f$ and cdf $F$, define
+$$
+a=\inf\{x\in\mathbb{R}:F(x)>0\},\qquad b=\sup\{x\in\mathbb{R}:F(x)<1\}.
+$$
+
+If $f$ is continuous on $(a,b)$, then
+$$
+F_{\min}(x)=1-[1-F(x)]^{n},\qquad
+f_{\min}(x)=n[1-F(x)]^{n-1}f(x),
+$$
+$$
+F_{\max}(x)=F(x)^{n},\qquad
+f_{\max}(x)=nF(x)^{n-1}f(x).
+$$
+
+**Example 2.39.** A batch of light bulbs has independent lifetimes, each $$\mathrm{Exp}(\lambda)$$ hours.
+
+a) If $n$ bulbs are turned on simultaneously, what is $P(\text{none is working after }n\text{ hours})$?  
+b) Compute $P\big(X_{(1)}\le 1\big)$ (first failure within one hour).  
+c) What is the probability that **3 or more** fail within one hour?  
+d) What is the probability that **exactly 3** fail within one hour?
+
+e) If $T$ is the time that elapses from when the first lamp stops working until the last one stops working, find the distribution of $T$.
+
+**Solution.** With $p=1-e^{-\lambda}$:
+
+a) $\big(1-e^{-\lambda n}\big)^{n}$.  
+b) $1-e^{-n\lambda}$.  
+c) If $N\sim\mathrm{Bin}(n,p)$ counts failures by time 1,
+$$
+P(N\ge 3)=1-\!\left[(1-p)^{n}+n\,p(1-p)^{n-1}+\binom{n}{2}p^{2}(1-p)^{n-2}\right].
+$$
+
+d) $P(N=3)=\binom{n}{3}p^{3}(1-p)^{n-3}$.
+
+e) For $t>0$, we have:
+$$
+\begin{aligned}
+f_T(t)
+&= f_{\,T_{(n)}-T_{(1)}}(t)
+= \int_{-\infty}^{\infty} f_{\,T_{(1)},\,T_{(n)}}(x,\,x+t)\,dx \\
+&= \int_{0}^{\infty} n(n-1)\,\big[F(x+t)-F(x)\big]^{n-2}\,f(x)\,f(x+t)\,dx.
+\end{aligned}
+$$
+
+In the exponential case, $F(x)=1-e^{-\lambda x}$ and $f(x)=\lambda e^{-\lambda x}$, so
+$$
+F(x+t)-F(x)=e^{-\lambda x}\big(1-e^{-\lambda t}\big)
+$$
+and hence
+$$
+\begin{aligned}
+f_T(t)
+&= \int_{0}^{\infty} n(n-1)\,\big(e^{-\lambda x}(1-e^{-\lambda t})\big)^{n-2}
+\;\lambda e^{-\lambda x}\;\lambda e^{-\lambda(x+t)}\,dx \\
+&=(n-1)\,\lambda\,e^{-\lambda t}\,\big(1-e^{-\lambda t}\big)^{n-2}
+\underbrace{\int_{0}^{\infty} \lambda n\,e^{-\lambda n x}\,dx}_{=\,1} \\
+&=\boxed{(n-1)\,\lambda\,e^{-\lambda t}\,\big(1-e^{-\lambda t}\big)^{\,n-2}},\qquad t>0.
+\end{aligned}
+$$
+
+
+## 2.5. Expectation of functions of random vectors
+
+In this section we generalize to the vector case some results presented in Chapter 9 of the first volume of this book.
+
+Recall that a discrete random variable $X$ is said to have finite expectation if
+$$
+\sum_{x} |x|\,f_X(x) < \infty,
+$$
+in which case the expectation of $X$, $E[X]$, is defined by
+$$
+E[X] \;=\; \sum_{x} x\,f_X(x).
+$$
+
+Likewise, an absolutely continuous random variable $X$ is said to have finite expectation if
+$$
+\int_{-\infty}^{\infty} |x|\,f_X(x)\,dx < \infty,
+$$
+in which case the expectation of $X$, $E[X]$, is defined by
+$$
+E[X] \;=\; \int_{-\infty}^{\infty} x\,f_X(x)\,dx.
+$$
+
+More generally, if $X$ is any random variable with distribution function $F_X$, we say that $X$ has finite expectation iff
+$$
+\int_{0}^{\infty} \big[1 - F_X(x)\big]\,dx < \infty
+\quad\text{and}\quad
+\int_{0}^{\infty} F_X(-x)\,dx < \infty,
+$$
+in which case
+$$
+E[X]
+\;=\;
+\int_{0}^{\infty} \big[1 - F_X(x)\big]\,dx
+\;-\;
+\int_{0}^{\infty} F_X(-x)\,dx.
+$$
+
+We now recall the following results (proved in Volume I, Corollaries 9.43 and 9.44).
+
+**Proposition 2.40.** Let $X_1,\ldots,X_n$ be random variables with finite expectations. Then $\sum_{k=1}^{n} X_k$ has finite expectation and
+$$
+E\!\left[\sum_{k=1}^{n} X_k\right] \;=\; \sum_{k=1}^{n} E[X_k].
+$$
+
+**Proposition 2.41.** Let $X_1,\ldots,X_n$ be independent random variables with finite expectations. Then $\prod_{k=1}^{n} X_k$ has finite expectation and
+$$
+E\!\left[\prod_{k=1}^{n} X_k\right] \;=\; \prod_{k=1}^{n} E[X_k].
+$$
+
+The next results will allow us to obtain simple formulas to compute the expectation of a function of a discrete or absolutely continuous random vector.
+
+**Corollary 2.43.** Let $X$ be an $n$-dimensional discrete random vector with joint pmf $f_X$, let $g:\mathbb{R}^n\to\mathbb{R}$ be any function, and let $F_{g(X)}$ denote the cdf of $g(X)$. Then
+$$
+\sum_{x\in\mathbb{R}^n} |g(x)|\,f_X(x) < \infty
+\iff
+\int_{0}^{\infty} \big[1 - F_{g(X)}(z)\big]\,dz < \infty
+\;\text{ and }\;
+\int_{0}^{\infty} F_{g(X)}(-z)\,dz < \infty.
+$$
+Moreover, in this case,
+$$
+\sum_{x\in\mathbb{R}^n} |g(x)|\,f_X(x)
+\;=\;
+\int_{0}^{\infty} \big[1 - F_{g(X)}(z)\big]\,dz
+\;+\;
+\int_{0}^{\infty} F_{g(X)}(-z)\,dz,
+$$
+and
+$$
+\sum_{x\in\mathbb{R}^n} g(x)\,f_X(x)
+\;=\;
+\int_{0}^{\infty} \big[1 - F_{g(X)}(z)\big]\,dz
+\;-\;
+\int_{0}^{\infty} F_{g(X)}(-z)\,dz.
+$$
+
+**Proposition 2.44.** Let $X$ be an $n$-dimensional absolutely continuous random vector with joint density $f_X$, let $g:\mathbb{R}^n\to\mathbb{R}$ be any function, and let $F_{g(X)}$ denote the cdf of $g(X)$. Then
+$$
+\int_{\{x\in\mathbb{R}^n:\,g(x)>0\}} \!\!\!\!\!\!\cdots \int g(x)\,f_X(x)\,dx
+\;=\;
+\int_{0}^{\infty} \big[1 - F_{g(X)}(z)\big]\,dz,
+$$
+and
+$$
+\int_{\{x\in\mathbb{R}^n:\,g(x)<0\}} \!\!\!\!\!\!\cdots \int |g(x)|\,f_X(x)\,dx
+\;=\;
+\int_{0}^{\infty} F_{g(X)}(-z)\,dz.
+$$
+
+**Proposition 2.46.** Let $X$ be an $n$-dimensional discrete random vector with joint pmf $f_X$, let $g:\mathbb{R}^n\to\mathbb{R}$ be any function, and let $F_{g(X)}$ be the cdf of $g(X)$. Then $g(X)$ has finite expectation iff
+$$
+\sum_{x\in\mathbb{R}^n} |g(x)|\,f_X(x) < \infty,
+$$
+and, in this case,
+$$
+E[g(X)] \;=\; \sum_{x\in\mathbb{R}^n} g(x)\,f_X(x).
+$$
+
+**Proof.** By the general definition of expectation (Definition 9.21 in Volume I), $g(X)$ has finite expectation iff
+$$
+\int_{0}^{\infty}\big[1 - F_{g(X)}(z)\big]\,dz < \infty
+\quad\text{and}\quad
+\int_{0}^{\infty} F_{g(X)}(-z)\,dz < \infty,
+$$
+and, in this case,
+$$
+E[g(X)]
+\;=\;
+\int_{0}^{\infty}\big[1 - F_{g(X)}(z)\big]\,dz
+\;-\;
+\int_{0}^{\infty} F_{g(X)}(-z)\,dz.
+$$
+The result follows from Corollary 2.43. $\square$
+
+**Proposition 2.47.** Let $X$ be an $n$-dimensional absolutely continuous random vector with joint density $f_X$, let $g:\mathbb{R}^n\to\mathbb{R}$ be any function, and let $F_{g(X)}$ be the cdf of $g(X)$. Then $g(X)$ has finite expectation iff
+$$
+\int_{\mathbb{R}^n} \!\!\cdots \int |g(x)|\,f_X(x)\,dx < \infty,
+$$
+and, in this case,
+$$
+E[g(X)] \;=\; \int_{\mathbb{R}^n} \!\!\cdots \int g(x)\,f_X(x)\,dx.
+$$
+
+**Proof.** Using the general definition of expectation (Definition 9.21 in Volume I), $g(X)$ has finite expectation iff
+$$
+\int_{0}^{\infty}\big[1 - F_{g(X)}(z)\big]\,dz < \infty
+\quad\text{and}\quad
+\int_{0}^{\infty} F_{g(X)}(-z)\,dz < \infty,
+$$
+and in this case
+$$
+E[g(X)]
+\;=\;
+\int_{0}^{\infty}\big[1 - F_{g(X)}(z)\big]\,dz
+\;-\;
+\int_{0}^{\infty} F_{g(X)}(-z)\,dz.
+$$
+Combining with Proposition 2.44 gives the result. $\square$
+
+**Example 2.48.** Let $X,Y,Z$ be independent random variables, each with exponential distribution of parameter $\lambda$. Find:
+
+a) $E[\max\{X,Y,Z\}]$; \quad b) $E[\min\{X,Y,Z\}]$.
+
+**Solution**
+$$
+E[\max\{X,Y,Z\}]
+\;=\;
+\frac{1}{\lambda}\!\left(1+\frac{1}{2}+\frac{1}{3}\right)
+\;=\;
+\frac{11}{6\lambda},
+\qquad
+E[\min\{X,Y,Z\}]
+\;=\;
+\frac{1}{3\lambda}.
+$$
+
+### 2.5.1. Correlation coefficient and covariance matrix
+
+For a random variable $X$ with finite expectation, the variance is
+$$
+\operatorname{Var}(X)
+\;=\;
+E\!\big[(X - E[X])^2\big]
+\;=\;
+E[X^2] - (E[X])^2.
+$$
+
+For random variables $X,Y$ with finite variances, the covariance is
+$$
+\operatorname{Cov}(X,Y)
+\;=\;
+E\!\big[(X - E[X])(Y - E[Y])\big]
+\;=\;
+E[XY] - E[X]\,E[Y].
+$$
+
+**(Cauchy–Schwarz inequality.)** For any random variables $X,Y$,
+$$
+E\!\big[\,|XY|\,\big]
+\;\le\;
+\sqrt{\,E[X^2]\,}\;\sqrt{\,E[Y^2]\,},
+$$
+and, in particular, if both variances are finite then
+$$
+|E[XY]|
+\;\le\;
+\sqrt{\,E[X^2]\,}\;\sqrt{\,E[Y^2]\,},
+$$
+with equality **iff** there exist constants $a,b$, not both zero, such that
+$$
+P\!\big(aX+bY=0\big)=1.
+$$
+
+**Correlation.** If $\operatorname{Var}(X)>0$ and $\operatorname{Var}(Y)>0$, the correlation coefficient of $X$ and $Y$ is
+$$
+\rho_{X,Y}
+\;=\;
+\frac{\operatorname{Cov}(X,Y)}{\sqrt{\operatorname{Var}(X)}\,\sqrt{\operatorname{Var}(Y)}},
+\qquad
+-1 \;\le\; \rho_{X,Y} \;\le\; 1.
+$$
+If $X$ and $Y$ are independent, then $\rho_{X,Y}=0$; the converse does not necessarily hold (see Volume I, Example 9.69).
+
+**Covariance matrix.** For random variables $X_1,\ldots,X_n$ with finite variances, the covariance matrix $\Sigma=[\sigma_{ij}]_{i,j=1}^{n}$ is defined by
+$$
+\sigma_{ij} \;=\; \operatorname{Cov}(X_i,X_j).
+$$
+
+
+## 3. Multivariate normal distribution
+
+### 3.1. Bivariate normal distribution
+
+**Definition 3.1 (Bivariate normal).** The pair $(X,Y)$ is **bivariate normal** if there exist independent standard normals $U,V$ and constants $a,b,c,d,\mu,\nu$ with $ad-bc\ne 0$ such that
+$$
+X=aU+bV+\mu,\qquad Y=cU+dV+\nu.
+$$
+(The condition $ad-bc\ne 0$ makes the linear map invertible.)
+
+**Proposition 3.2.** Suppose $(X,Y)$ is bivariate normal with means $\mu_X,\mu_Y$, variances $\sigma_X^{2},\sigma_Y^{2}$, and correlation $\rho$. Then $\rho^{2}\ne 1$ and
+$$
+\begin{aligned}
+f_{X,Y}(x,y)
+&=\frac{1}{2\pi\,\sigma_X\sigma_Y\,\sqrt{1-\rho^{2}}}\,
+\exp\!\Bigg(
+-\frac{1}{2(1-\rho^{2})}
+\Big[
+\Big(\frac{x-\mu_X}{\sigma_X}\Big)^{2}
+-2\rho \Big(\frac{x-\mu_X}{\sigma_X}\Big)\Big(\frac{y-\mu_Y}{\sigma_Y}\Big)
++\Big(\frac{y-\mu_Y}{\sigma_Y}\Big)^{2}
+\Big]\Bigg).
+\end{aligned}
+$$
+
+**Example 3.4.** Let $(X,Y)$ be bivariate normal with means $(-1,3)$, variances $(4,9)$ and correlation $-2/3$.
+**Solution**
+Then:
+$$
+f_{X,Y}(x,y)
+=\frac{1}{4\pi\sqrt{5}}\,
+\exp\!\left\{-\frac{1}{2}\left[\frac{9}{20}(x+1)^{2}+\frac{1}{5}(y-3)^{2}+\frac{2}{5}(x+1)(y-3)\right]\right\}.
+$$
+
+We have
+$$
+\frac{9}{20}x^{2}+\frac{1}{5}y^{2}+\frac{2}{5}xy
+=\frac{9}{20}\!\left(x+\frac{4}{9}y\right)^{2}+\frac{1}{9}y^{2}.
+$$
+
+Thus
+$$
+f_{X,Y}(x,y)
+=\frac{1}{4\pi\sqrt{5}}\,
+\exp\!\left\{-\frac{1}{2}\left[\frac{9}{20}\!\left((x+1)+\frac{4}{9}(y-3)\right)^{2}
++\frac{1}{9}(y-3)^{2}\right]\right\}
+$$
+and hence
+$$
+f_{X,Y}(x,y)
+=\frac{1}{4\pi\sqrt{5}}\,
+\exp\!\left\{-\frac{1}{2}\left[\left(\frac{9x+4y-3}{6\sqrt{5}}\right)^{2}
++\left(\frac{y-3}{3}\right)^{2}\right]\right\}.
+$$
+
+define
+$$
+U=\frac{9X+4Y-3}{6\sqrt{5}},\qquad V=\frac{Y-3}{3}.
+$$
+Then
+
+$$
+f_{U,V}(u,v) = \frac{1}{2\pi} \exp\!\left\{-\frac{1}{2}[u^2 + v^2]\right\}
+$$
+$U,V$ are independent standard normals and
+$$
+X=\frac{2\sqrt{5}}{3}\,U-\frac{4}{3}\,V-1,\qquad
+Y=3V+3.
+$$
+
+**Definition 3.5 (Quadratic forms in two variables).** A function $F:\mathbb{R}^{2}\to\mathbb{R}$ is a quadratic form if
+$$
+F(x,y)=ax^{2}+bxy+cy^{2},
+$$
+for constants $a,b,c$.
+
+**Definition 3.6 (Positive definite quadratic form).** The quadratic form $F(x,y)=ax^{2}+bxy+cy^{2}$ is **positive definite** if $F(x,y)>0$ for all $(x,y)\ne(0,0)$.
+
+**Proposition 3.7.** $F(x,y)=ax^{2}+bxy+cy^{2}$ is positive definite iff $a>0,\;c>0,\;4ac-b^{2}>0$.
+
+**Proof.** If $a\ne 0$, then
+$$
+F(x,y)=ax^{2}+bxy+cy^{2}
+= a\!\left(x+\frac{b}{2a}y\right)^{2}+\frac{4ac-b^{2}}{4a}\,y^{2}.
+$$
+Hence, whenever $a>0$ and $4ac-b^{2}>0$, the quadratic form $F$ is positive definite.
+
+Conversely, if $F$ is positive definite, first note we cannot have $a=0$ and $c=0$ (that would give $F(x,y)=bxy$, not positive definite). Also $a\ne 0$; otherwise
+$$
+F(x,y)=bxy+cy^{2}=c\!\left(y+\frac{b}{2c}x\right)^{2}-\frac{b^{2}}{4c}\,x^{2},
+$$
+which is not positive definite. Thus we may write
+$$
+F(x,y)= a\!\left(x+\frac{b}{2a}y\right)^{2}+\frac{4ac-b^{2}}{4a}\,y^{2},
+$$
+and since $F$ is positive definite, necessarily $a>0$ and $4ac-b^{2}>0$. Finally,
+$c>\dfrac{b^{2}}{4a}\ge 0$.
+
+If the random vector $(X,Y)$ is bivariate normal, then its joint density has the form
+$$
+f_{X,Y}(x,y)=K\exp\!\Big\{-\tfrac12\,F(x-\mu,\;y-\nu)\Big\},
+$$
+where $K>0$ and
+$$
+F(x,y)=\frac{1}{1-\rho^{2}}
+\left(\frac{x^{2}}{\sigma_{X}^{2}}
+-\frac{2\rho}{\sigma_{X}\sigma_{Y}}\,xy
++\frac{y^{2}}{\sigma_{Y}^{2}}\right).
+$$
+This quadratic form is positive definite since $\dfrac{1}{1-\rho^{2}}>0$ and
+$$
+b^{2}-4ac
+=\frac{4\rho^{2}}{(1-\rho^{2})^{2}\sigma_{X}^{2}\sigma_{Y}^{2}}
+-\frac{4}{(1-\rho^{2})^{2}\sigma_{X}^{2}\sigma_{Y}^{2}}
+=-\frac{4}{(1-\rho^{2})\,\sigma_{X}^{2}\sigma_{Y}^{2}}<0.
+$$
+
+**Proposition 3.8.** Let $X,Y$ be a pair of random variables with joint density
+$$
+f_{X,Y}(x,y)=K\exp\!\Big\{-\tfrac12\,F(x-\mu,\;y-\nu)\Big\},
+$$
+where $F$ is a positive definite quadratic form and $K,\mu,\nu$ are constants.
+Then the vector $(X,Y)$ has a bivariate normal distribution.
+
+**Proof.** Let
+$$
+F(x,y)=a x^{2}+bxy+c y^{2}.
+$$
+Then
+$$
+F(x,y)=a\!\left(x+\frac{b}{2a}y\right)^{2}+\frac{4ac-b^{2}}{4a}\,y^{2}.
+$$
+Hence
+$$
+f_{X,Y}(x,y)
+=K\exp\!\left\{-\tfrac12\left[
+a\!\left((x-\mu)+\frac{b}{2a}(y-\nu)\right)^{2}
++\frac{4ac-b^{2}}{4a}\,(y-\nu)^{2}\right]\right\}.
+$$
+
+Consider the random variables
+$$
+U=\sqrt{a}\,\Big((X-\mu)+\tfrac{b}{2a}(Y-\nu)\Big),\qquad
+V=\sqrt{\frac{4ac-b^{2}}{4a}}\,(Y-\nu).
+$$
+The transformation from $(X,Y)$ to $(U,V)$ is invertible; hence there exist constants
+$A,B,C,D$ with $AD-BC\ne 0$ such that
+$$
+X=AU+BV+\mu,\qquad Y=CU+DV+\nu.
+$$
+Moreover,
+$$
+f_{U,V}(u,v)=C\exp\!\left\{-\tfrac12\,[u^{2}+v^{2}]\right\},
+$$
+for some constant $C$. Therefore $U$ and $V$ are independent standard normals, and the pair
+$(X,Y)$ is bivariate normal. $\square$
+
+Let $f:\mathbb{R}^{2}\to\mathbb{R}$ be a density of the form
+$$
+f(x,y)=C\exp\!\left\{-\tfrac12\,(a x^{2}+bxy+c y^{2}+dx+ey)\right\},
+$$
+where $d,e,C$ are constants and the quadratic form $F(x,y)=a x^{2}+bxy+c y^{2}$ is positive
+definite (by Proposition 3.7, $a>0,\;c>0,\;4ac-b^{2}>0$).
+
+For arbitrary real $\mu,\nu$,
+$$
+\begin{aligned}
+F(x-\mu,y-\nu)
+&=a(x-\mu)^{2}+b(x-\mu)(y-\nu)+c(y-\nu)^{2}\\
+&=a x^{2}+bxy+c y^{2}-(b+2a\mu)x-(2c\nu+b\mu)y+a\mu^{2}+b\mu\nu+c\nu^{2}.
+\end{aligned}
+$$
+Since $b^{2}-4ac\ne 0$, the linear system
+$$
+b\nu+2a\mu=-d,\qquad 2c\nu+b\mu=-e
+$$
+has a unique solution $(\mu,\nu)$. With this choice,
+$$
+f(x,y)=K\exp\!\left\{-\tfrac12\,F(x-\mu,y-\nu)\right\}
+=K\exp\!\left\{-\tfrac12\big[a(x-\mu)^{2}+b(x-\mu)(y-\nu)+c(y-\nu)^{2}\big]\right\},
+$$
+for a constant $K$. Hence $f$ is the density of a bivariate normal distribution.
+
+Let $(X,Y)$ have this density. Then it can also be written in the canonical form
+$$
+f(x,y)=\frac{1}{2\pi\,\sigma_X\sigma_Y\sqrt{1-\rho^{2}}}
+\exp\!\Bigg\{-\frac{1}{2(1-\rho^{2})}\!\left[
+\frac{(x-\mu)^{2}}{\sigma_X^{2}}+\frac{(y-\nu)^{2}}{\sigma_Y^{2}}
+-2\rho\,\frac{(x-\mu)(y-\nu)}{\sigma_X\sigma_Y}\right]\!\Bigg\},
+$$
+where $\sigma_X^{2}$ and $\sigma_Y^{2}$ are the variances of $X$ and $Y$, and $\rho$ is the
+correlation coefficient. Matching coefficients gives
+$$
+(1-\rho^{2})\,\sigma_X^{2}=\frac{1}{a},\qquad
+(1-\rho^{2})\,\sigma_Y^{2}=\frac{1}{c},\qquad
+(1-\rho^{2})\,\sigma_X\sigma_Y=-\,b.
+$$
+Thus
+$$
+\rho=-\,\frac{b}{\sqrt{4ac}},\qquad
+\sigma_X^{2}=\frac{1-\rho^{2}}{a},\qquad
+\sigma_Y^{2}=\frac{1-\rho^{2}}{c},
+$$
+and
+$$
+\operatorname{Cov}(X,Y)=\rho\,\sigma_X\sigma_Y
+=\frac{-\,b}{\,4ac-b^{2}\,}.
+$$
+
+In particular, we obtain:
+
+**Proposition 3.9.** Let $$f:\mathbb{R}^{2}\to\mathbb{R}$$ be a density of the form
+$$
+f(x,y)=C\exp\!\left\{-\tfrac12\big(ax^{2}+bxy+cy^{2}+dx+ey\big)\right\},
+$$
+where $a,b,c,d,e$ and $C$ are constants and the quadratic form $F(x,y)=ax^{2}+bxy+cy^{2}$ is positive definite. Then $f$ is the density of a bivariate normal distribution.
+**Example 3.10.** Let $X,Y$ be a pair of random variables with joint density
+$$
+f_{X,Y}(x,y)=C\exp\!\left\{-\tfrac12\big(2x^{2}-2xy+2y^{2}-4x\big)\right\},
+$$
+where $C$ is a constant.  
+Since the quadratic form $F(x,y)=2x^{2}-2xy+2y^{2}=2\!\left(x-\tfrac12 y\right)^{2}+\tfrac32\,y^{2}$ is positive definite, the joint distribution of the random vector $(X,Y)$ is bivariate normal.
+
+Let $\mu,\nu$ be the means of $X$ and $Y$, respectively; then
+$$
+F(x-\mu,y-\nu)=2(x-\mu)^{2}-2(x-\mu)(y-\nu)+2(y-\nu)^{2}.
+$$
+
+According to Propositions 3.55 and 3.36, if the family of random variables $X_1,\ldots,X_n$ has a multivariate normal distribution, then its joint density $f_{X_1,\ldots,X_n}$ is
+$$
+f_{X_1,\ldots,X_n}(x)
+=\frac{\sqrt{\lvert C^{-1}\rvert}}{(\sqrt{2\pi})^{\,n}}
+\exp\!\left\{-\tfrac12\,\big(C^{-1}(x-\mu)\big)\cdot(x-\mu)\right\},
+$$
+where $C$ is a symmetric positive definite matrix.  
+The following proposition shows that the converse is also valid.
+
+**Proposition 3.56.** Let $X$ be a random vector with joint density
+$$
+f_X(x)
+= K \exp\!\left\{-\tfrac{1}{2}\,(x-\mu)^{\top} C^{-1} (x-\mu)\right\},
+$$
+where $C$ is a symmetric positive definite matrix and $K$ and $\mu$ are constants. Then $X$ has a multivariate normal distribution.
+**Proof.** Let $B$ be an invertible, symmetric, positive–definite matrix such that $C=B^{2}$ and consider the transformation $x=\mu+Bu$. Then
+$$
+\begin{aligned}
+(C^{-1}(Bu))\cdot(Bu)
+&=((B^{2})^{-1}(Bu))\cdot(Bu)
+=((B^{-1})^{2}(Bu))\cdot(Bu)\\
+&=(B^{-1}u)\cdot(Bu)
+=(Bu)^{\top}(B^{-1}u)
+=u^{\top}BB^{-1}u
+=u\cdot u .
+\end{aligned}
+$$
+Thus, defining $U=B^{-1}(X-\mu)$, we have
+$$
+\begin{aligned}
+f_U(u)
+&=\lvert B\rvert\, f_X(\mu+Bu)
+=\lvert B\rvert\,K\exp\!\left\{-\tfrac12\,(C^{-1}(Bu))\cdot(Bu)\right\}\\
+&=\lvert B\rvert\,K\exp\!\left\{-\tfrac12\,u\cdot u\right\}.
+\end{aligned}
+$$
+Therefore the random vector $U$ has independent components, each with standard normal
+distribution. Moreover, $X=BU+\mu$ with $B$ invertible, so $X$ has a multivariate normal distribution. $\square$
+
+**Corollary 3.68.** Let $X_1,\ldots,X_n$ be independent random variables, each with distribution $N(\mu,\sigma^{2})$. Then  
+a) $U=\dfrac{(n-1)s_{X}^{2}}{\sigma^{2}}\sim \chi^{2}_{\,n-1}$.  
+b) $V=\dfrac{\sqrt{n}\,(\bar X-\mu)}{\,s_{X}\,}\sim t_{\,n-1}$.
+
+
+
+# 4. Conditional expectation and conditional distributions
+
+## 4.1. Conditional expectation given an event
+Let $A$ be an event with positive probability and $X$ a random variable with finite expectation. We want to define the conditional expectation of $X$ given the occurrence of the event $A$, that is, $E[X\mid A]$.
+
+If $X$ is discrete and $x_1,x_2,\ldots$ are its possible values, then
+$$
+E[X]=\sum_k x_k\,P[X=x_k].
+$$
+It is therefore natural to define
+$$
+E[X\mid A]=\sum_k x_k\,P[X=x_k\mid A],
+$$
+an expression that can be written as
+$$
+\begin{aligned}
+E[X\mid A]
+&=\sum_k x_k\,P[X=x_k\mid A]
+=\sum_k x_k\,\frac{P\big(A\cap\{X=x_k\}\big)}{P(A)}\\
+&=\frac{1}{P(A)}\sum_k x_k\,P\big(A\cap\{X=x_k\}\big)
+=\frac{1}{P(A)}\,E\!\big[X\,\mathbf{1}_{A}\big].
+\end{aligned}
+$$
+This last expression does not depend on the particular form of $X$, so it can be used to give the following general definition.
+
+
+**Definition 4.1.** Let $A$ be an event with $P(A)>0$ and $X$ a random variable with finite expectation. The **conditional expectation of $X$ given $A$** is
+$$
+E[X\mid A]=\frac{1}{P(A)}\,E[X\,\mathbf{1}_{A}].
+$$
+
+Observe that $$E[X\mid A]$$ is well-defined, since
+$$
+E\!\big[\,\lvert X\,\mathbf{1}_{A}\rvert\,\big]\;\le\;E\!\big[\,\lvert X\rvert\,\big]\;<\;\infty.
+$$
+
+Also note that this definition extends the conditional probability of an event $B$ given $A$,
+$$
+P(B\mid A)=\frac{P(B\cap A)}{P(A)}.
+$$
+Indeed, if $X=\mathbf{1}_{B}$, then
+$$
+E[X\mid A]
+=\frac{1}{P(A)}\,E[\mathbf{1}_{B}\,\mathbf{1}_{A}]
+=\frac{1}{P(A)}\,E[\mathbf{1}_{B\cap A}]
+=\frac{P(B\cap A)}{P(A)}
+= P(B\mid A).
+$$
+
+Let $X$ and $Y$ be two discrete random variables with joint pmf $f_{X,Y}$. For each $y\in\mathbb{R}$ define the function $x\mapsto f_{X\mid Y}(x\mid y)$ by
+$$
+f_{X\mid Y}(x\mid y)=
+\begin{cases}
+\dfrac{f_{X,Y}(x,y)}{f_Y(y)}, & \text{if } f_Y(y)>0,\\[8pt]
+f_X(x), & \text{otherwise.}
+\end{cases}
+$$
+
+Observe that, for the purposes of the definition of $f_{X\mid Y}$, the values of $f_{X\mid Y}(x\mid y)$ at those points $y$ where $P[Y=y]=0$ are immaterial, since $Y$ does not take those values.
+
+Also note that, for any fixed $y\in\mathbb{R}$, viewed as a function of $x$, $f_{X\mid Y}(x\mid y)$ is a discrete pmf; moreover, if $f_Y(y)>0$, then for every $x\in\mathbb{R}$ we have
+$$
+P[X=x\mid Y=y]=f_{X\mid Y}(x\mid y).
+$$
+
+It is then natural to define the function $x\mapsto f_{X\mid Y}(x\mid y)$ as the **conditional pmf** of $X$ given that $Y=y$. As with any pmf, the conditional pmf of a random variable $X$ determines a distribution, which we call the **conditional distribution of $X$ given $Y$**.
+
+**Definition 4.4 (Conditional expectation given another random variable — discrete case).**  
+Let $X$ be a discrete random variable with finite expectation and let $Y$ be any discrete random variable. Define the function $h:\mathbb{R}\to\mathbb{R}$ by
+$$
+h(y)=\sum_{k} x_k\, f_{X\mid Y}(x_k\mid y).
+$$
+The random variable $h(Y)$ is called the **conditional expectation of $X$ given $Y$** and is denoted by
+$$
+E[X\mid Y].
+$$
+Observe that, for the purposes of the definition of $E[X\mid Y]$, the values of $h$ at points $y$ with
+$$
+P[Y=y]=0
+$$
+are immaterial, since $Y$ does not take those values.
+
+
+**Example 4.5.** Let $(X,Y)$ a random discrete vector with joint density function given by:
+$$
+f_{X,Y}(x,y)=
+\begin{cases}
+\dfrac{2}{N(N+1)}, & x\le y,\ \ x,y\in\{1,\ldots,N\},\\
+0, & \text{otherwise,}
+\end{cases}
+$$
+with $N\in\mathbb{N}$.
+
+a) Find $E[X\mid Y]$.  
+b) Find $E[Y\mid X]$.
+
+**Solution.**  
+a) For $y\in\{1,\ldots,N\}$,
+$$
+f_Y(y)=\sum_{x=1}^{y}\frac{2}{N(N+1)}=\frac{2y}{N(N+1)},\qquad
+E[X\mid Y=y]=\frac{\sum_{x=1}^{y}x\,\frac{2}{N(N+1)}}{f_Y(y)}=\frac{1}{y}\sum_{x=1}^{y}x=\frac{y+1}{2}.
+$$
+Thus $E[X\mid Y]=\tfrac12\,(Y+1)$.
+
+b) For $x\in\{1,\ldots,N\}$,
+$$
+f_X(x)=\sum_{y=x}^{N}\frac{2}{N(N+1)}=\frac{2\,(N+1-x)}{N(N+1)},\qquad
+E[Y\mid X=x]=\frac{\sum_{y=x}^{N}y\,\frac{2}{N(N+1)}}{f_X(x)}=\frac{x+N}{2}.
+$$
+The following proposition characterizes the random variable $$E[X\mid Y]$$ and this characterization will serve as the basis for the general definition of conditional expectation in the next section.
+
+**Proposition 4.7.** Let $X$ be a discrete random variable with finite expectation and let $Y$ be any discrete random variable. The random variable $h(Y)=E[X\mid Y]$ has finite expectation and
+$$
+E\!\big[f(Y)\,h(Y)\big]=E\!\big[f(Y)\,X\big]
+$$
+for every bounded function $$f:\mathbb{R}\to\mathbb{R}$$. Moreover, if $$h_1$$ and $$h_2$$ are two functions with these same two properties, then
+$$
+P\!\big[h_1(Y)=h_2(Y)\big]=1.
+$$
+
+**Proof.** We first show that $h(Y)$ has finite expectation. Indeed, if $y_1,y_2,\ldots$ are the possible values of $Y$ and $x_1,x_2,\ldots$ are the possible values of $X$, then
+$$
+\sum_j |h(y_j)|\,P[Y=y_j]
+\;\le\; \sum_j \sum_k |x_k|\,\frac{P(X=x_k,\,Y=y_j)}{P[Y=y_j]}\,P[Y=y_j]
+=\sum_k |x_k|\,P[X=x_k]
+=E[\,|X|\,]<\infty.
+$$
+
+Now let $f:\mathbb{R}\to\mathbb{R}$ be any bounded function. Then
+$$
+\begin{aligned}
+E\!\big[f(Y)\,h(Y)\big]
+&=\sum_j f(y_j)\,h(y_j)\,P[Y=y_j] \\
+&=\sum_j f(y_j)\!\sum_k x_k\,\frac{P(X=x_k,\,Y=y_j)}{P[Y=y_j]}\,P[Y=y_j] \\
+&=\sum_{j} f(y_j)\!\sum_k x_k\,P(X=x_k,\,Y=y_j) \\
+&=\sum_{j,k} f(y_j)\,x_k\,P(X=x_k,\,Y=y_j)
+=E\!\big[f(Y)\,X\big].
+\end{aligned}
+$$
+
+Suppose now that $g:\mathbb{R}\to\mathbb{R}$ is a function such that $g(Y)$ has finite expectation and
+$$
+E\!\big[f(Y)\,g(Y)\big]=E\!\big[f(Y)\,X\big]\quad\text{for every bounded }f:\mathbb{R}\to\mathbb{R}.
+$$
+Then
+$$
+\sum_j f(y_j)\,g(y_j)\,P[Y=y_j]
+=\sum_{j,k} f(y_j)\,x_k\,P(X=x_k,\,Y=y_j)
+\quad\text{for every bounded }f.
+$$
+In particular, taking $f=\mathbf{1}_{\{y_j\}}$, we obtain
+$$
+g(y_j)\,P[Y=y_j]=\sum_k x_k\,P(X=x_k,\,Y=y_j),
+$$
+and hence, for any $y_j$ with $P[Y=y_j]>0$,
+$$
+g(y_j)=\sum_k x_k\,\frac{P(X=x_k,\,Y=y_j)}{P[Y=y_j]}=h(y_j).
+$$
+That is, $g(y)=h(y)$ for every $y$ with $P[Y=y]>0$. Therefore, if $h_1$ and $h_2$ both satisfy the stated properties, then $h_1(Y)=h_2(Y)$ with probability 1, which implies
+$$
+P\big[h_1(Y)=h_2(Y)\big]=1.
+$$
+
+The last proposition tells us that the random variable $h(Y)$ is characterized by the two properties mentioned. We can therefore conclude that we may define
+$$
+E[X\mid Y]=h(Y)
+$$
+by means of any function $h:\mathbb{R}\to\mathbb{R}$ such that $h(Y)$ has finite expectation and satisfies
+$$
+E\!\big[f(Y)\,h(Y)\big]=E\!\big[f(Y)\,X\big]
+$$
+for every bounded function $f:\mathbb{R}\to\mathbb{R}$.
+
+The next proposition shows that conditional expectation has properties similar to those of the (unconditional) expectation. It also shows that it has the properties one would expect from a good definition, in accordance with the intuitive idea of the concept. For example, a good definition of conditional expectation should ensure that if $X$ and $Y$ are independent, then the fact that $Y$ takes a certain value should not alter the expected value of $X$; that is, one should have
+$$
+E[X\mid Y]=E[X].
+$$
+
+The following proposition presents other specific properties of conditional expectation which are not immediately evident from the intuitive idea.
+
+**Proposition 4.13.** Let $Y$ be any random variable. Then:
+
+(i) $E[c \mid Y]=c$ for every constant $c$.
+
+(ii) $E[cX \mid Y]=c\,E[X \mid Y]$ for every constant $c$ and every random variable $X$ with finite expectation.
+
+(iii) $E[X_1+X_2 \mid Y]=E[X_1 \mid Y]+E[X_2 \mid Y]$ for any pair of random variables $X_1$ and $X_2$ with finite expectation.
+
+(iv) If $X$ has finite expectation, then
+$$
+E\!\big[E[X \mid Y]\big]=E[X].
+$$
+
+(v) If $X$ has finite expectation and $Z=g(Y)$, then
+$$
+E\!\big(E(X \mid Y)\ \big|\ Z\big)=E(X \mid Z).
+$$
+
+(vi) If $X$ has finite expectation and is independent of $Y$, then
+$$
+E[X \mid Y]=E[X].
+$$
+
+(vii) If $X$ has finite expectation and $g:\mathbb{R}\to\mathbb{R}$ is a function such that $g(Y)X$ has finite expectation, then $g(Y)E[X \mid Y]$ has finite expectation and
+$$
+E\!\big[g(Y)X \mid Y\big]=g(Y)\,E[X \mid Y].
+$$
+
+(viii) If $X$ and $Z$ are random variables with finite expectation such that $X\le Z$, then
+$$
+E[X \mid Y]\le E[Z \mid Y].
+$$
+
+(ix) If $X$ has finite variance, then $Z=E[X \mid Y]$ also has finite variance.
+
+**Proof.** 
+The proofs of **(i)**, **(ii)**, and **(iii)** are left as exercises, while **(vii)** and **(viii)** require tools beyond the level of this book. We only prove **(iv)**, **(v)**, and **(ix)**.
+
+**(iv)** This is a special case of one of the characterizing properties of conditional expectation: for every bounded function $f:\mathbb{R}\to\mathbb{R}$,
+$$
+E\!\big[f(Y)\,E[X\mid Y]\big]=E\!\big[f(Y)\,X\big].
+$$
+Taking $f\equiv 1$ gives
+
+$$
+E\!\big[E[X\mid Y]\big]=E[X].
+$$
+
+**(v)** Let
+$$
+h_1(Y)=E[X\mid Y],\qquad h_2(Z)=E\!\big[h_1(Y)\mid Z\big],
+$$
+and let $f:\mathbb{R}\to\mathbb{R}$ be any bounded function. If $Z=g(Y)$, then
+
+$$
+E\!\big[f(Z)\,h_2(Z)\big]
+=E\!\big[f(Z)\,h_1(Y)\big]
+=E\!\big[(f\circ g)(Y)\,h_1(Y)\big]
+=E\!\big[(f\circ g)(Y)\,X\big]
+=E\!\big[f(Z)\,X\big].
+$$
+
+Therefore,
+$$
+E\!\big(E[X\mid Y]\mid Z\big)=h_2(Z)
+$$
+is a version of $E[X\mid Z]$.
+
+To prove **(vi)**, let $f:\mathbb{R}\to\mathbb{R}$ be any bounded function. By independence of $X$ and $Y$,
+$$
+E\!\big[f(Y)\,X\big]=E\!\big[f(Y)\big]\;E[X].
+$$
+On the other hand, by the defining property of conditional expectation,
+$$
+E\!\big[f(Y)\,X\big]=E\!\big[f(Y)\,E[X\mid Y]\big].
+$$
+Hence, for every bounded $f$,
+$$
+E\!\big[f(Y)\,\{E[X\mid Y]-E[X]\}\big]=0,
+$$
+which implies (by Proposition 4.7) that
+$$
+E[X\mid Y]=E[X]\quad\text{a.s.}
+$$
+
+To prove **(ix)**, observe that
+$$
+X^{2}-Z^{2}=(X-Z)(X+Z)\;\ge\;2Z(X-Z),
+$$
+and for each $n\in\mathbb{N}$ let $W_n=\mathbf{1}_{[-n,n]}(Z)$. Then
+$$
+W_nX^{2}-W_nZ^{2}\;\ge\;2W_nZ(X-Z).
+$$
+Since $W_n$ and $W_nZ$ are bounded random variables that depend only on $Y$, we have
+$$
+E[\,W_nX^{2}\mid Y\,]\;\ge\;E[\,W_nZ^{2}\mid Y\,]+2\,W_nZ\,E[X-Z\mid Y]
+=E[\,W_nZ^{2}\mid Y\,],
+$$
+hence
+$$
+W_nZ^{2}\;\le\;E[\,X^{2}\mid Y\,]\qquad\text{for all }n\in\mathbb{N}.
+$$
+Letting $n\to\infty$ (so $W_n\uparrow 1$), we obtain
+$$
+Z^{2}\;\le\;E[\,X^{2}\mid Y\,].
+$$
+Finally, taking expectations in the last inequality yields
+$$
+E[Z^{2}]\;\le\;E[X^{2}]<\infty,
+$$
+so $Z=E[X\mid Y]$ has finite variance.
+
+---
+
+**Example 4.14.** Let $X$ be a random variable with finite mean and variance, $Y$ any random variable, and $Z=E[X\mid Y]$. Show that:
+
+a) $E\!\big[(X-Z)^{2}\big]=E\!\big[X^{2}-Z^{2}\big]$.
+
+b) $\operatorname{Var}(X-Z)=\operatorname{Var}(X)-\operatorname{Var}(Z)$.
+
+**Solution**
+
+a)
+$$
+\begin{aligned}
+E\!\big[(X-Z)^{2}\big]
+&=E\!\big[X^{2}-2XZ+Z^{2}\big]\\
+&=E[X^{2}]-2E[XZ]+E[Z^{2}]\\
+&=E[X^{2}]-2E\!\big(Z\,E[X\mid Y]\big)+E[Z^{2}]\\
+&=E[X^{2}]-2E[Z^{2}]+E[Z^{2}]
+=E[X^{2}-Z^{2}].
+\end{aligned}
+$$
+
+b) Using $E[X]=E[Z]$,
+$$
+\begin{aligned}
+\operatorname{Var}(X-Z)
+&=E\!\big[(X-Z)^{2}\big]-\big(E[X]-E[Z]\big)^{2}\\
+&=E[X^{2}-Z^{2}]
+=\big(E[X^{2}]-(E[X])^{2}\big)-\big(E[Z^{2}]-(E[Z])^{2}\big)\\
+&=\operatorname{Var}(X)-\operatorname{Var}(Z).
+\end{aligned}
+$$
+
+---
+
+**Example 4.15.** Let $X$ be a random variable with finite mean and variance, $Y$ any random variable, and let $h(Y)=E[X\mid Y]$. Show that
+$$
+E\!\big[(X-h(Y))^{2}\big]\ \le\ E\!\big[(X-g(Y))^{2}\big]
+$$
+for every function $g$ such that $g(Y)$ has finite mean and variance.
+
+**Solution.** From the previous example we have
+$$
+E\big[(X-h(Y))^{2}\big]=E[X^{2}]-E\big[h^{2}(Y)\big].
+$$
+On the other hand,
+$$
+\begin{aligned}
+E\big[(X-g(Y))^{2}\mid Y\big]
+&=E\big[X^{2}-2Xg(Y)+g^{2}(Y)\mid Y\big]\\
+&=E[X^{2}\mid Y]-2\,g(Y)\,E[X\mid Y]+g^{2}(Y)\\
+&=E[X^{2}\mid Y]-2\,g(Y)\,h(Y)+g^{2}(Y).
+\end{aligned}
+$$
+Taking expectations,
+$$
+E\big[(X-g(Y))^{2}\big]
+=E[X^{2}]-2\,E\!\big[g(Y)h(Y)\big]+E\!\big[g^{2}(Y)\big].
+$$
+Thus,
+$$
+\begin{aligned}
+E\big[(X-g(Y))^{2}\big]-E\big[(X-h(Y))^{2}\big]
+&=\Big(E[X^{2}]-2E[g(Y)h(Y)]+E[g^{2}(Y)]\Big)-\Big(E[X^{2}]-E[h^{2}(Y)]\Big)\\
+&=E\!\big[h^{2}(Y)-2g(Y)h(Y)+g^{2}(Y)\big]\\
+&=E\!\big[(h(Y)-g(Y))^{2}\big]\ \ge\ 0.
+\end{aligned}
+$$
+
+Therefore, $E[X\mid Y]$ minimizes $E[(X-g(Y))^{2}]$ among all functions $g$ such that $g(Y)$ has finite mean and variance. In other words, given $Y$, the conditional expectation $E[X\mid Y]$ is the best mean–square estimator of $X$.
+
+
+
+## 4.4. Conditional expectation in the absolutely continuous case
+Just as in the discrete case, one can give the explicit form of the conditional expectation in the absolutely continuous case. However, the proof that this is indeed a version of this expectation requires tools beyond the level of this book. For this reason, we only state the result without proof, after introducing some notation which, in this particular case, will be useful.
+
+**Proposition 4.16.** Let $(X,Y)$ be an absolutely continuous random vector with joint density function $f_{X,Y}:\mathbb{R}^2\to\mathbb{R}$. Let $g:\mathbb{R}\to\mathbb{R}$ be a function such that
+$$
+\int_{-\infty}^{\infty} |g(x,y)|\, f_{X,Y}(x,y)\,dx < \infty.
+$$
+Define the function $h:\mathbb{R}\to\mathbb{R}$ by
+$$
+h(y)=
+\begin{cases}
+\int_{-\infty}^{\infty} g(x,y)\,\dfrac{f_{X,Y}(x,y)}{f_Y(y)}\,dx, & \text{if } f_Y(y)>0,\\[2ex]
+0, & \text{if } f_Y(y)=0.
+\end{cases}
+$$
+
+Then $h(Y)$ is a version of the conditional expectation $E[g(X,Y)\mid Y]$.  
+
+Recalling that $h(Y)$ is a version of the conditional expectation $E[g(X,Y)\mid Y]$, we define
+$$
+E[X\mid Y=y] = h(y)\quad\text{for any }y\in\mathbb{R}.
+$$
+Thus, given the random vector $(X,Y)$ and the function $g$ from the previous proposition, we obtain:
+$$
+E[g(X,Y)\mid Y=y] =
+\begin{cases}
+\int_{-\infty}^{\infty} g(x,y)\,\dfrac{f_{X,Y}(x,y)}{f_Y(y)}\,dx, & \text{if } f_Y(y)>0,\\[2ex]
+0, & \text{if } f_Y(y)=0.
+\end{cases}
+$$
+
+Note that the definition of
+$$
+h(y)=E[g(X,Y)\mid Y=y]
+$$
+is equal to 0 at points $y\notin A=\{y\in\mathbb{R}: f_Y(y)>0\}$ because $\int_{-\infty}^\infty |g(x,y)| f_{X,Y}(x,y)\,dx=0$ in that case. Moreover, $P[Y\in A^c]=0$, since
+$$
+P[Y\in A^c]=\int_{A^c} f_Y(y)\,dy=0.
+$$
+
+On the other hand, we have
+$$
+\int_{-\infty}^\infty \int_{-\infty}^\infty |g(x,y)| f_{X,Y}(x,y)\,dxdy = E[|g(X,Y)|] < \infty,
+$$
+and one can prove that this implies $P[Y\in C]=0$. Thus:
+$$
+P[Y\notin A] = P[Y\in B\cup C] = P[Y\in B] + P[Y\in C] = 0.
+$$
+
+---
+
+**Example 4.17.**  
+Let $X$ and $Y$ be two independent random variables, both with exponential distribution with parameter $\lambda$. Let $Z=Y-X$ and define
+$$
+h(z)=
+\begin{cases}
+\int_{-\infty}^\infty x\,\dfrac{f_{X,Z}(x,z)}{f_Z(z)}\,dx, & \text{if } f_Z(z) > 0, \\[2ex]
+0, & \text{otherwise.}
+\end{cases}
+$$
+Show that $h(Z)$ is a version of the conditional expectation $E[X\mid Z]$.
+
+---
+
+**Solution.**
+
+We have
+$$
+f_{X,Z}(x,z) = f_X(x)\,f_Y(z+x)
+= 
+\begin{cases}
+\lambda^2 e^{-\lambda z} e^{-2\lambda x}, & x>0,\; z+x>0, \\[1ex]
+0, & \text{otherwise}.
+\end{cases}
+$$
+
+Therefore:
+- If $z \geq 0$,
+$$
+f_Z(z) = \int_0^\infty \lambda^2 e^{-\lambda z} e^{-2\lambda x}\,dx
+= \tfrac{1}{2}\lambda e^{-\lambda z}.
+$$
+- If $z \leq 0$,
+$$
+f_Z(z) = \int_{-z}^\infty \lambda^2 e^{-\lambda z} e^{-2\lambda x}\,dx
+= \tfrac{1}{2}\lambda e^{\lambda z}.
+$$
+
+Thus:
+$$
+h(z)=
+\begin{cases}
+\dfrac{\int_0^\infty x\,\lambda^2 e^{-\lambda z} e^{-2\lambda x}\,dx}{\tfrac{1}{2}\lambda e^{-\lambda z}}, & z\geq 0, \\[2ex]
+\dfrac{\int_{-z}^\infty x\,\lambda^2 e^{-\lambda z} e^{-2\lambda x}\,dx}{\tfrac{1}{2}\lambda e^{\lambda z}}, & z\leq 0.
+\end{cases}
+$$
+
+For $z\geq 0$:
+$$
+h(z)=\frac{2\lambda \int_0^\infty x e^{-2\lambda x}\,dx}{1}
+=\frac{1}{2\lambda}.
+$$
+
+For $z\leq 0$:
+$$
+h(z)=2\lambda e^{2\lambda z}\int_{-z}^\infty x e^{-2\lambda x}\,dx
+=\frac{1}{2\lambda} - z.
+$$
+
+So,
+$$
+h(z)=\frac{1}{2\lambda}-z\,I_{(-\infty,0]}(z).
+$$
+
+Hence,
+$$
+h(Z)=\frac{1}{2\lambda}-Z\,I_{(-\infty,0]}(Z).
+$$
+
+Clearly, $h(Z)$ is a random variable. Furthermore,
+$$
+E[|h(Z)| f_Z(z)] = \int_{-\infty}^\infty \left| \int_{-\infty}^\infty x\,\frac{f_{X,Z}(x,z)}{f_Z(z)}\,dx \right| f_Z(z)\,dz
+\leq \int_{-\infty}^\infty \int_{-\infty}^\infty |x| f_{X,Z}(x,z)\,dx\,dz
+= E[|X|] < \infty.
+$$
+
+So, $h(Z)$ has finite expectation.  
+
+Finally, for any bounded function $f:\mathbb{R}\to\mathbb{R}$ we have:
+$$
+E[f(Z)h(Z)] = \int_{-\infty}^\infty f(z)\left(\int_{-\infty}^\infty x\,\frac{f_{X,Z}(x,z)}{f_Z(z)}\,dx\right) f_Z(z)\,dz
+= \int_{-\infty}^\infty\int_{-\infty}^\infty f(z)x f_{X,Z}(x,z)\,dx\,dz
+= E[f(Z)X].
+$$
+
+**Example 4.18.** Let $X$ and $Y$ be random variables with joint density
+$$
+f(x,y)=
+\begin{cases}
+\lambda^{2}\,e^{-\lambda x}, & 0<y<x,\\
+0, & \text{otherwise.}
+\end{cases}
+$$
+Find: a) $E[X\mid Y]$, b) $E[e^{-X}\mid Y]$, c) $E[e^{-(X-Y)}\mid Y]$, and d) $E[e^{-XY}\mid Y]$.
+
+**Solution**
+
+a.  
+$$
+f_Y(y)=
+\begin{cases}
+\int_0^\infty \lambda^2 e^{-\lambda x} dx = \lambda e^{-\lambda y}, & y>0, \\
+0, & \text{otherwise.}
+\end{cases}
+$$
+
+Therefore,  
+$$
+E[X \mid Y=y] =
+\begin{cases}
+\int_y^\infty x \lambda e^{-\lambda (x-y)} dx, & y>0, \\
+0, & \text{otherwise.}
+\end{cases}
+$$
+
+$$
+= \begin{cases}
+y + \dfrac{1}{\lambda}, & y>0, \\
+0, & \text{otherwise.}
+\end{cases}
+$$
+
+Thus,  
+$$
+E[X \mid Y] = Y + \frac{1}{\lambda}.
+$$
+
+b.  
+$$
+E[e^{-X} \mid Y=y] =
+\begin{cases}
+\int_y^\infty e^{-x}\,\lambda e^{-\lambda(x-y)} dx, & y>0, \\
+0, & \text{otherwise.}
+\end{cases}
+$$
+
+$$
+= \begin{cases}
+\dfrac{\lambda}{\lambda+1} e^{-y}, & y>0, \\
+0, & \text{otherwise.}
+\end{cases}
+$$
+
+So,  
+$$
+E[e^{-X} \mid Y] = \frac{\lambda}{\lambda+1} e^{-Y}.
+$$
+
+c.  
+The random variables $e^{-X}$ and $e^{-(X-Y)}$ are integrable. Therefore,
+$$
+E[e^{-(X-Y)} \mid Y] = E[e^{-X}e^Y \mid Y] = e^Y E[e^{-X} \mid Y] = e^Y \cdot \frac{\lambda}{\lambda+1} e^{-Y} = \frac{\lambda}{\lambda+1}.
+$$
+
+d.  
+$$
+E[e^{-XY} \mid Y=y] =
+\begin{cases}
+\int_y^\infty e^{-xy} \lambda e^{-\lambda(x-y)} dx, & y>0, \\
+0, & \text{otherwise.}
+\end{cases}
+$$
+
+$$
+= \begin{cases}
+\dfrac{\lambda}{\lambda+y} e^{-y^2}, & y>0, \\
+0, & \text{otherwise.}
+\end{cases}
+$$
+
+Thus,  
+$$
+E[e^{-XY} \mid Y] = \frac{\lambda}{\lambda+Y} e^{-Y^2}.
+$$
+
+**Example 4.19.**  
+Let $X$ and $Y$ be two independent random variables, both uniformly distributed on the interval $(0,1)$. Find:  
+a) $E[XY \mid X]$  
+b) $E[X \mid XY]$.
+
+**Solution**
+a)  
+$$
+E[XY \mid X] = X E[Y \mid X] = X E[Y] = \tfrac{1}{2} X
+$$
+
+b)  
+$$
+f_{X,XY}(x,v) = \frac{1}{|x|} f_{X,Y}\left(x, \tfrac{v}{x}\right) =
+\begin{cases}
+\tfrac{1}{x}, & 0 < v < x < 1, \\
+0, & \text{otherwise.}
+\end{cases}
+$$
+
+$$
+f_{XY}(v) = \int_{-\infty}^\infty f_{X,XY}(x,v)\, dx
+= \int_v^1 \frac{1}{x} dx =
+\begin{cases}
+-\ln v, & 0 < v < 1, \\
+0, & \text{otherwise.}
+\end{cases}
+$$
+
+Therefore,
+
+$$
+E[X \mid XY = v] =
+\begin{cases}
+\dfrac{-\int_v^1 \tfrac{1}{\ln v} dx}{}, & 0 < v < 1, \\
+0, & \text{otherwise.}
+\end{cases}
+$$
+
+$$
+E[X \mid XY = v] =
+\begin{cases}
+\dfrac{1-v}{\ln v}, & 0 < v < 1, \\
+0, & \text{otherwise.}
+\end{cases}
+$$
+
+Thus,
+
+$$
+E[X \mid XY] = \frac{XY - 1}{\ln(XY)}.
+$$
+
+## 4.5. Conditional Distributions
+
+As we mentioned earlier, just as any density function, the conditional density function of a discrete random variable $X$ defines a distribution, which is called the conditional distribution of $X$ given $Y$.
+
+---
+
+**Example 4.23.**  
+Let $(X,Y)$ be a discrete random vector with joint density given by:
+
+$$
+f_{X,Y}(x,y) =
+\begin{cases}
+\dfrac{2}{N(N+1)}, & \text{if } x \leq y \text{ and } x,y \in \{1,\ldots,N\}, \\
+0, & \text{otherwise,}
+\end{cases}
+$$
+
+where $N$ is a positive integer.  
+
+Find the conditional density function of:  
+a) $X$ given $Y=y$, for $y \in \{1,\ldots,N\}$.  
+b) $Y$ given $X=x$, for $x \in \{1,\ldots,N\}$.
+
+---
+
+**Solution**
+
+a)  
+
+$$
+f_Y(y) = \sum_{x=1}^N f_{X,Y}(x,y)
+= \sum_{x=1}^y \frac{2}{N(N+1)} = \frac{2}{N(N+1)}y
+$$
+
+$$
+f_{X|Y}(x \mid y) = \frac{f_{X,Y}(x,y)}{f_Y(y)} =
+\begin{cases}
+\dfrac{1}{y}, & x \in \{1,\ldots,y\}, \\
+0, & \text{otherwise}.
+\end{cases}
+$$
+
+Thus, given that $Y=y$, $X$ has a uniform distribution on the set $\{1,\ldots,y\}$.
+
+---
+
+b)  
+
+$$
+f_X(x) = \sum_{y=1}^N f_{X,Y}(x,y) = \sum_{y=x}^N \frac{2}{N(N+1)} = \frac{2}{N(N+1)}(N+1-x)
+$$
+
+$$
+f_{Y|X}(y \mid x) = \frac{f_{X,Y}(x,y)}{f_X(x)} =
+\begin{cases}
+\dfrac{1}{N+1-x}, & y \in \{x,\ldots,N\}, \\
+0, & \text{otherwise}.
+\end{cases}
+$$
+
+Thus, given that $X=x$, $Y$ has a uniform distribution on the set $\{x,\ldots,N\}$.
+
+---
+
+To define the concept of conditional distribution in the absolutely continuous case, we need the following definition:
+
+**Definition 4.28 (Conditional probability of an event given a random variable).**  
+If $A$ is any event and $Y$ is any random variable, we define:
+
+$$
+P(A \mid Y) = E[I_A \mid Y]
+$$
+
+Let $(X,Y)$ be an absolutely continuous random vector with joint density $f_{X,Y}$. For each $y \in \mathbb{R}$, we define the function $x \mapsto f_{X|Y}(x \mid y)$ as follows:
+
+$$
+f_{X|Y}(x \mid y) =
+\begin{cases}
+\dfrac{f_{X,Y}(x,y)}{f_Y(y)}, & f_Y(y) > 0, \\
+f_X(x), & \text{otherwise}.
+\end{cases}
+$$
+
+Observe that, for any $y \in \mathbb{R}$, the function $x \mapsto f_{X|Y}(x \mid y)$ is a density function. Moreover, if $f_Y(y) > 0$:
+
+$$
+P[X \leq x \mid Y = y] = E[I_{(-\infty, x]}(X) \mid Y = y] 
+= \int_{-\infty}^x f_{X|Y}(u \mid y) du = \int_{-\infty}^x f_{X|Y}(x \mid y) dx.
+$$
+
+Therefore, just as in the discrete case, it is natural to define the function $x \mapsto f_{X|Y}(x \mid y)$ as the conditional density of $X$ given $Y=y$ and the distribution it defines as the conditional distribution of $X$ given $Y=y$. We also define the function
+
+$$
+x \mapsto F_{X|Y}(x \mid y) = P[X \leq x \mid Y = y]
+$$
+
+as the conditional distribution function of $X$ given $Y=y$.
+
+---
+
+**Remark 4.29.**  
+Note that, just as in the discrete case, the definition of the conditional density function in the absolutely continuous case is consistent with the definition of conditional expectation. Indeed, if $s$ is a real number such that $f_Y(s) > 0$ and $g: \mathbb{R}^2 \mapsto \mathbb{R}$ is a function such that $g(X,Y)$ has finite expectation and $\int_{-\infty}^{\infty} |g(x,y)| f_{X|Y}(x \mid y) dx < \infty$, then:
+
+$$
+E[g(X,Y) \mid Y = y] = \int_{-\infty}^\infty g(x,y) \frac{f_{X,Y}(x,y)}{f_Y(y)} dx 
+= \int_{-\infty}^\infty g(x,y) f_{X|Y}(x \mid y) dx.
+$$
+
+That is, given $Y=y$, the conditional expectation of $g(X,Y)$ is the expectation of the random variable $g(X,y)$ calculated by taking as density function of $X$ the conditional density $f_{X|Y}$.
+
+---
+
+**Example 4.30.**  
+Let $X$ and $Y$ be two random variables with joint density function given by:
+
+$$
+f(x,y) =
+\begin{cases}
+\lambda^2 e^{-\lambda x}, & 0 < y < x, \\
+0, & \text{otherwise.}
+\end{cases}
+$$
+
+Find a) the conditional distribution of $X$ given that $Y=y$, for $y>0$, and b) the conditional distribution of $Y$ given that $X=x$, for $x>0$.
+
+---
+
+**Solution**
+
+a)  
+
+$$
+f_Y(y) = \int_y^\infty \lambda^2 e^{-\lambda x} dx =
+\begin{cases}
+\lambda e^{-\lambda y}, & y > 0, \\
+0, & \text{otherwise}.
+\end{cases}
+$$
+
+$$
+f_{X|Y}(x \mid y) = \frac{f(x,y)}{f_Y(y)} =
+\begin{cases}
+\lambda e^{-\lambda (x-y)}, & 0 < y < x, \\
+0, & \text{otherwise}.
+\end{cases}
+$$
+
+Thus, given that $Y=y$, $X-y$ has an exponential distribution with parameter $\lambda$.
+
+---
+
+b)  
+
+$$
+f_X(x) = \int_0^x \lambda^2 e^{-\lambda x} dy =
+\begin{cases}
+\lambda^2 x e^{-\lambda x}, & x > 0, \\
+0, & \text{otherwise}.
+\end{cases}
+$$
+
+$$
+f_{Y|X}(y \mid x) = \frac{f(x,y)}{f_X(x)} =
+\begin{cases}
+\dfrac{1}{x}, & 0 < y < x, \\
+0, & \text{otherwise}.
+\end{cases}
+$$
+
+Thus, given that $X=x$, $Y$ has a uniform distribution on the interval $(0,x)$.
 
 
 ## Conditional densities
