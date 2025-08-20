@@ -1387,7 +1387,7 @@ P\!\left(U>\tfrac12,\;V>\tfrac14\right)
 &=\left[u-\frac{1}{4}\ln u\right]_{1/2}^{1}
 =\tfrac12+\tfrac14\ln 2.
 \end{aligned}
-$$
+$$  {#eq-1}
 
 ---
 
